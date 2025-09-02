@@ -24,7 +24,8 @@ function verifyToken(token: string): any {
 }
 
 // Protected employee routes that require employee authentication
-const protectedEmployeeRoutes = ['/employee/dashboard', '/employee/welcome']
+// Temporarily disable to avoid Edge runtime crypto issues
+const protectedEmployeeRoutes: string[] = [] // ['/employee/dashboard', '/employee/welcome']
 
 // Protected admin routes that require admin authentication
 // Temporarily disable middleware for admin routes - let client-side handle it
@@ -57,18 +58,19 @@ export function middleware(request: NextRequest) {
       }
     }
 
-    try {
-      const payload = jwt.verify(adminToken, JWT_SECRET) as any
-      if (payload.type !== 'admin') {
-        console.log('Middleware: Invalid admin token type, redirecting to login')
-        return NextResponse.redirect(new URL('/login', request.url))
-      }
-      console.log('Middleware: Admin token verified successfully')
-      return NextResponse.next()
-    } catch (error) {
-      console.log('Middleware: Admin token verification failed:', error)
+    const payload = verifyToken(adminToken)
+    if (!payload) {
+      console.log('Middleware: Admin token verification failed')
       return NextResponse.redirect(new URL('/login', request.url))
     }
+    
+    if (payload.type !== 'admin') {
+      console.log('Middleware: Invalid admin token type, redirecting to login')
+      return NextResponse.redirect(new URL('/login', request.url))
+    }
+    
+    console.log('Middleware: Admin token verified successfully')
+    return NextResponse.next()
   }
 
   // Check if the current path is a protected employee route
