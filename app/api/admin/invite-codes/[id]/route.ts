@@ -33,8 +33,9 @@ function verifyAdminToken(request: NextRequest) {
 // DELETE - Deactivate/remove an invite code
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
+  const { id } = await params
   try {
     const admin = verifyAdminToken(request)
     if (!admin) {
@@ -44,7 +45,7 @@ export async function DELETE(
       )
     }
 
-    const codeId = params.id
+    const codeId = id
 
     if (!global.inviteCodes) {
       return NextResponse.json(
@@ -82,8 +83,9 @@ export async function DELETE(
 // GET - Get specific invite code details
 export async function GET(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
+  const { id } = await params
   try {
     const admin = verifyAdminToken(request)
     if (!admin) {
@@ -93,7 +95,7 @@ export async function GET(
       )
     }
 
-    const codeId = params.id
+    const codeId = id
 
     if (!global.inviteCodes) {
       return NextResponse.json(

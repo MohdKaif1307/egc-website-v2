@@ -72,7 +72,7 @@ function verifyAdminToken(request: NextRequest) {
 
   try {
     const token = authHeader.substring(7)
-    const payload = jwt.verify(token, JWT_SECRET) as any
+    const payload = jwt.verify(token, JWT_SECRET) as { id: string; email: string; name?: string; type: string; role?: string; iat?: number; exp?: number }
     
     // Check if it's an admin token (new system)
     if (payload.type !== 'admin') {
@@ -143,7 +143,7 @@ export async function POST(request: NextRequest) {
     const newCode: InviteCode = {
       id: Date.now().toString(),
       code: generateInviteCode(),
-      createdBy: admin.name,
+      createdBy: admin.name || admin.email,
       createdAt: new Date().toISOString(),
       expiresAt: new Date(Date.now() + expiryDays * 24 * 60 * 60 * 1000).toISOString(),
       isUsed: false,

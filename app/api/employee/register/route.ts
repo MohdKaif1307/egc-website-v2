@@ -16,7 +16,7 @@ function getValidInviteCodes() {
 }
 
 // Function to use an invite code
-function useInviteCode(inviteCode: string, employeeEmail: string) {
+function consumeInviteCode(inviteCode: string, employeeEmail: string) {
   if (!global.inviteCodes) {
     return null
   }
@@ -122,7 +122,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Use the invite code
-    const usedCode = useInviteCode(inviteCode, email)
+    const usedCode = consumeInviteCode(inviteCode, email)
     if (!usedCode) {
       return NextResponse.json(
         { message: 'Invite code is no longer valid or has been used up.' },

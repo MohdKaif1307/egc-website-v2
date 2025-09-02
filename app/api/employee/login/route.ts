@@ -3,7 +3,7 @@ import jwt from 'jsonwebtoken'
 
 // In a real application, you would store these in a database
 // This is just for demonstration purposes
-let EMPLOYEES = [
+const EMPLOYEES = [
   {
     id: 1,
     email: 'Mohdkaif@egcworld.in',
