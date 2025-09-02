@@ -97,6 +97,8 @@ function Header() {
             
             <Link href="/insights" className="text-gray-700 dark:text-gray-300 hover:text-primary-600 transition-colors font-medium text-xl">Insights / Blog</Link>
             
+            <Link href="/employee/login" className="text-gray-700 dark:text-gray-300 hover:text-primary-600 transition-colors font-medium text-xl">Employee Login</Link>
+            
             {/* Get in Touch CTA Button */}
             <Link 
               href="/contact" 
@@ -212,6 +214,14 @@ function Header() {
                 onClick={() => setIsMenuOpen(false)}
               >
                 Insights / Blog
+              </Link>
+
+              <Link 
+                href="/employee/login" 
+                className="block text-gray-700 dark:text-gray-300 hover:text-primary-600 transition-colors text-lg font-medium"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                Employee Login
               </Link>
 
               {/* Get in Touch CTA Button */}
