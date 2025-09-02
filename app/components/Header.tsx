@@ -97,7 +97,12 @@ function Header() {
             
             <Link href="/insights" className="text-gray-700 dark:text-gray-300 hover:text-primary-600 transition-colors font-medium text-xl">Insights / Blog</Link>
             
-            <Link href="/employee/login" className="text-gray-700 dark:text-gray-300 hover:text-primary-600 transition-colors font-medium text-xl">Employee Login</Link>
+            {/* Profile/Login Icon */}
+            <Link href="/login" className="text-gray-700 dark:text-gray-300 hover:text-primary-600 transition-colors p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800">
+              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+              </svg>
+            </Link>
             
             {/* Get in Touch CTA Button */}
             <Link 
@@ -217,11 +222,14 @@ function Header() {
               </Link>
 
               <Link 
-                href="/employee/login" 
-                className="block text-gray-700 dark:text-gray-300 hover:text-primary-600 transition-colors text-lg font-medium"
+                href="/login" 
+                className="flex items-center text-gray-700 dark:text-gray-300 hover:text-primary-600 transition-colors text-lg font-medium"
                 onClick={() => setIsMenuOpen(false)}
               >
-                Employee Login
+                <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                </svg>
+                Login
               </Link>
 
               {/* Get in Touch CTA Button */}

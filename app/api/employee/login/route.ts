@@ -3,22 +3,36 @@ import jwt from 'jsonwebtoken'
 
 // In a real application, you would store these in a database
 // This is just for demonstration purposes
-const EMPLOYEES = [
+let EMPLOYEES = [
   {
     id: 1,
-    email: 'admin@egc.com',
-    password: 'admin123', // In production, this should be hashed
+    email: 'Mohdkaif@egcworld.in',
+    password: 'Admin@1307', // In production, this should be hashed
     name: 'Admin User',
-    role: 'admin'
+    role: 'admin',
+    isFirstLogin: false
   },
   {
     id: 2,
     email: 'employee@egc.com',
     password: 'emp123', // In production, this should be hashed
     name: 'Employee User',
-    role: 'employee'
+    role: 'employee',
+    isFirstLogin: false
   }
 ]
+
+// Import registered employees from registration endpoint
+// In a real app, this would be a shared database
+function getRegisteredEmployees() {
+  try {
+    // This is a simple way to share data between API routes
+    // In production, use a proper database
+    return global.registeredEmployees || []
+  } catch {
+    return []
+  }
+}
 
 const JWT_SECRET = process.env.JWT_SECRET || 'your-secret-key'
 
@@ -34,8 +48,10 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    // Find employee
-    const employee = EMPLOYEES.find(emp => emp.email === email)
+    // Find employee in both default employees and registered employees
+    const registeredEmployees = getRegisteredEmployees()
+    const allEmployees = [...EMPLOYEES, ...registeredEmployees]
+    const employee = allEmployees.find(emp => emp.email === email)
     
     if (!employee) {
       return NextResponse.json(
@@ -58,23 +74,35 @@ export async function POST(request: NextRequest) {
         id: employee.id,
         email: employee.email,
         name: employee.name,
-        role: employee.role
+        role: employee.role,
+        isFirstLogin: employee.isFirstLogin || false
       },
       JWT_SECRET,
       { expiresIn: '24h' }
     )
 
-    // Return success response
-    return NextResponse.json({
+    // Create response with HTTP-only cookie
+    const response = NextResponse.json({
       message: 'Login successful',
       token,
       employee: {
         id: employee.id,
         email: employee.email,
         name: employee.name,
-        role: employee.role
+        role: employee.role,
+        isFirstLogin: employee.isFirstLogin || false
       }
     })
+
+    // Set HTTP-only cookie for middleware access
+    response.cookies.set('employeeToken', token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'strict',
+      maxAge: 24 * 60 * 60 // 24 hours
+    })
+
+    return response
 
   } catch (error) {
     console.error('Login error:', error)

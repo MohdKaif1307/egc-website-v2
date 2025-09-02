@@ -4,35 +4,15 @@ import jwt from 'jsonwebtoken'
 
 const JWT_SECRET = process.env.JWT_SECRET || 'your-secret-key'
 
-// Protected employee routes that require authentication
-const protectedEmployeeRoutes = ['/employee/dashboard']
+// Protected employee routes that require employee authentication
+const protectedEmployeeRoutes = ['/employee/dashboard', '/employee/welcome']
+
+// Protected admin routes that require admin authentication
+const protectedAdminRoutes = ['/admin']
 
 export function middleware(request: NextRequest) {
-  const { pathname } = request.nextUrl
-
-  // Check if the current path is a protected employee route
-  if (protectedEmployeeRoutes.some(route => pathname.startsWith(route))) {
-    const token = request.cookies.get('employeeToken')?.value || 
-                  request.headers.get('authorization')?.replace('Bearer ', '')
-
-    if (!token) {
-      // Redirect to login if no token
-      return NextResponse.redirect(new URL('/employee/login', request.url))
-    }
-
-    try {
-      // Verify the JWT token
-      jwt.verify(token, JWT_SECRET)
-      // Token is valid, continue to the requested page
-      return NextResponse.next()
-    } catch (error) {
-      // Invalid token, redirect to login
-      console.error('Invalid token:', error)
-      return NextResponse.redirect(new URL('/employee/login', request.url))
-    }
-  }
-
-  // For non-protected routes, continue normally
+  // Temporarily disable all middleware for debugging
+  console.log('Middleware accessed for:', request.nextUrl.pathname)
   return NextResponse.next()
 }
 

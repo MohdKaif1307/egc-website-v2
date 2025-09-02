@@ -4,7 +4,7 @@ import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 
-export default function EmployeeLogin() {
+export default function UnifiedLogin() {
   const [formData, setFormData] = useState({
     email: '',
     password: ''
@@ -15,11 +15,19 @@ export default function EmployeeLogin() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
+    
+    // Prevent multiple submissions
+    if (isLoading) return
+    
     setIsLoading(true)
     setError('')
 
+    console.log('Form submitted with:', formData)
+
     try {
-      const response = await fetch('/api/employee/login', {
+      // First try admin login
+      console.log('Trying admin login...')
+      const adminResponse = await fetch('/api/admin/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -27,22 +35,61 @@ export default function EmployeeLogin() {
         body: JSON.stringify(formData),
       })
 
-      const data = await response.json()
+      console.log('Admin response status:', adminResponse.status)
 
-      if (response.ok) {
-        // Store authentication token or session
-        localStorage.setItem('employeeToken', data.token)
+      if (adminResponse.ok) {
+        const adminData = await adminResponse.json()
+        console.log('Admin login successful!', adminData)
+        localStorage.setItem('adminToken', adminData.token)
+        console.log('Token stored, redirecting to /admin')
+        
+        // Use router.replace instead of window.location
+        router.replace('/admin')
+        return
+      } else {
+        const adminError = await adminResponse.json()
+        console.log('Admin login failed with status:', adminResponse.status)
+        console.log('Admin error details:', adminError)
+      }
+
+      // If admin login fails, try employee login
+      console.log('Trying employee login...')
+      const employeeResponse = await fetch('/api/employee/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      })
+
+      console.log('Employee response status:', employeeResponse.status)
+
+      if (employeeResponse.ok) {
+        const employeeData = await employeeResponse.json()
+        console.log('Employee login successful!', employeeData)
+        localStorage.setItem('employeeToken', employeeData.token)
         
         // Check if it's first login and redirect to welcome page
-        if (data.employee.isFirstLogin) {
-          router.push('/employee/welcome')
+        if (employeeData.employee.isFirstLogin) {
+          console.log('First time login, redirecting to welcome')
+          router.replace('/employee/welcome')
         } else {
-          router.push('/employee/dashboard')
+          console.log('Returning user, redirecting to dashboard')
+          router.replace('/employee/dashboard')
         }
+        return
       } else {
-        setError(data.message || 'Login failed')
+        const employeeError = await employeeResponse.json()
+        console.log('Employee login failed with status:', employeeResponse.status)
+        console.log('Employee error details:', employeeError)
       }
+
+      // Both logins failed
+      console.log('Both admin and employee login failed')
+      setError('Invalid credentials')
+
     } catch (error) {
+      console.error('Login error:', error)
       setError('An error occurred. Please try again.')
     } finally {
       setIsLoading(false)
@@ -66,14 +113,14 @@ export default function EmployeeLogin() {
             </svg>
           </div>
           <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900 dark:text-white">
-            Employee Login
+            Welcome Back
           </h2>
           <p className="mt-2 text-center text-sm text-gray-600 dark:text-gray-400">
-            Access your employee dashboard
+            Sign in to your account
           </p>
         </div>
         
-        <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
+        <form className="mt-8 space-y-6" onSubmit={handleSubmit} noValidate>
           <div className="bg-white dark:bg-gray-800 shadow-lg rounded-lg p-8">
             <div className="space-y-4">
               <div>
@@ -155,6 +202,20 @@ export default function EmployeeLogin() {
           <Link href="/" className="text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white">
             ← Back to main website
           </Link>
+        </div>
+
+        {/* Info about login types */}
+        <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg p-4">
+          <div className="flex">
+            <svg className="h-5 w-5 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            <div className="ml-3">
+              <p className="text-sm text-blue-700 dark:text-blue-300">
+                Use your admin or employee credentials to access your respective dashboard.
+              </p>
+            </div>
+          </div>
         </div>
       </div>
     </div>
