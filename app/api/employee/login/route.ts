@@ -14,9 +14,17 @@ const EMPLOYEES = [
   },
   {
     id: 2,
-    email: 'employee@egc.com',
-    password: 'emp123', // In production, this should be hashed
-    name: 'Employee User',
+    email: 'Pranchal@egcworld.in',
+    password: 'Pranchal@123', // In production, this should be hashed
+    name: 'Pranchal User',
+    role: 'employee',
+    isFirstLogin: false
+  },
+  {
+    id: 3,
+    email: 'Sarika@egcworld.in',
+    password: 'Sarika@123', // In production, this should be hashed
+    name: 'Sarika User',
     role: 'employee',
     isFirstLogin: false
   }

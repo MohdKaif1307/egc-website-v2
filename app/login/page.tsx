@@ -32,6 +32,7 @@ export default function UnifiedLogin() {
         headers: {
           'Content-Type': 'application/json',
         },
+        credentials: 'include', // Ensure cookies are sent and received
         body: JSON.stringify(formData),
       })
 
@@ -59,6 +60,7 @@ export default function UnifiedLogin() {
         headers: {
           'Content-Type': 'application/json',
         },
+        credentials: 'include', // Ensure cookies are sent and received
         body: JSON.stringify(formData),
       })
 

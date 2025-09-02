@@ -12,13 +12,20 @@ export default function AdminDashboard() {
 
   useEffect(() => {
     console.log('Admin page: Checking authentication...')
+    console.log('Admin page: localStorage adminToken:', localStorage.getItem('adminToken') ? 'present' : 'not found')
+    
     const currentAdmin = getCurrentAdmin()
     console.log('Admin page: Current admin:', currentAdmin)
+    
     if (!currentAdmin) {
       console.log('Admin page: No admin found, redirecting to login')
-      router.push('/login')
+      // Give a small delay to see if it's a timing issue
+      setTimeout(() => {
+        router.push('/login')
+      }, 100)
       return
     }
+    
     console.log('Admin page: Admin authenticated, setting admin data')
     setAdmin(currentAdmin)
     setIsLoading(false)

@@ -91,8 +91,9 @@ export async function POST(request: NextRequest) {
     response.cookies.set('adminToken', token, {
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production',
-      sameSite: 'strict',
-      maxAge: 8 * 60 * 60 // 8 hours
+      sameSite: 'lax', // Changed from 'strict' to 'lax' for better compatibility
+      maxAge: 8 * 60 * 60, // 8 hours
+      path: '/' // Ensure cookie is available for all paths
     })
 
     return response
@@ -169,8 +170,9 @@ export async function DELETE(request: NextRequest) {
     response.cookies.set('adminToken', '', {
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production',
-      sameSite: 'strict',
-      maxAge: 0 // Expire immediately
+      sameSite: 'lax', // Match the login cookie settings
+      maxAge: 0, // Expire immediately
+      path: '/' // Ensure cookie is cleared for all paths
     })
 
     return response

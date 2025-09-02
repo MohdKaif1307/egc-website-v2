@@ -43,24 +43,51 @@ export function getCurrentAdmin(): Admin | null {
   if (typeof window === 'undefined') return null
   
   const token = localStorage.getItem('adminToken')
-  if (!token) return null
+  if (!token) {
+    console.log('getCurrentAdmin: No token found in localStorage')
+    return null
+  }
 
   try {
-    const payload = JSON.parse(atob(token.split('.')[1]))
+    // Validate token structure
+    const parts = token.split('.')
+    if (parts.length !== 3) {
+      console.log('getCurrentAdmin: Invalid token structure')
+      localStorage.removeItem('adminToken')
+      return null
+    }
+
+    const payload = JSON.parse(atob(parts[1]))
+    console.log('getCurrentAdmin: Token payload:', payload)
     
-    // Verify it's an admin token
-    if (payload.type !== 'admin') {
+    // Check expiration
+    const currentTime = Date.now() / 1000
+    if (payload.exp && payload.exp < currentTime) {
+      console.log('getCurrentAdmin: Token expired')
+      localStorage.removeItem('adminToken')
       return null
     }
     
-    return {
+    // Verify it's an admin token
+    if (payload.type !== 'admin') {
+      console.log('getCurrentAdmin: Invalid token type:', payload.type)
+      localStorage.removeItem('adminToken')
+      return null
+    }
+    
+    const admin = {
       id: payload.id,
       email: payload.email,
       name: payload.name,
       role: payload.role,
       permissions: payload.permissions || []
     }
+    
+    console.log('getCurrentAdmin: Returning admin:', admin)
+    return admin
   } catch (error) {
+    console.log('getCurrentAdmin: Error parsing token:', error)
+    localStorage.removeItem('adminToken')
     return null
   }
 }
@@ -72,7 +99,8 @@ export function adminLogout(): void {
     
     // Also call the logout API to clear HTTP-only cookies
     fetch('/api/admin/login', {
-      method: 'DELETE'
+      method: 'DELETE',
+      credentials: 'include' // Ensure cookies are sent
     }).catch(console.error)
     
     window.location.href = '/login'
