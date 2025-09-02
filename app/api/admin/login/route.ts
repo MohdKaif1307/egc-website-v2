@@ -5,7 +5,7 @@ import jwt from 'jsonwebtoken'
 const ADMIN_USERS = [
   {
     id: 'admin-1',
-    email: process.env.ADMIN_EMAIL || 'mohammaddkaif@egcworld.in',
+    email: process.env.ADMIN_EMAIL || 'mohammadkaif@egcworld.in',
     password: process.env.ADMIN_PASSWORD || 'Admin@1307', // In production, this should be hashed
     name: 'System Administrator',
     role: 'super_admin',

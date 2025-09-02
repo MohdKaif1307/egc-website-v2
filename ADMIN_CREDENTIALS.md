@@ -3,7 +3,7 @@
 ## Production Login Credentials
 
 ### Super Admin (Full Access)
-- **Email:** `mohdkaif@egcworld.in`
+- **Email:** `mohammadkaif@egcworld.in`
 - **Password:** `Admin@1307`
 - **Role:** Super Admin
 - **Permissions:** All (full system access)
@@ -26,7 +26,7 @@
 For better security, you can set these environment variables in Vercel:
 
 ```
-ADMIN_EMAIL=mohdkaif@egcworld.in
+ADMIN_EMAIL=mohammadkaif@egcworld.in
 ADMIN_PASSWORD=Admin@1307
 JWT_SECRET=your-secure-jwt-secret
 ```

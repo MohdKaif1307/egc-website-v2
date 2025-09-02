@@ -4,14 +4,14 @@ import jwt from 'jsonwebtoken'
 // In a real application, you would store these in a database
 // This is just for demonstration purposes
 const EMPLOYEES = [
-  {
-    id: 1,
-  email: 'mohdkaif@egcworld.in',
-  password: 'Admin@123', // In production, this should be hashed
-  name: 'Mohd Kaif',
-  role: 'Data Analyst',
-  isFirstLogin: false
-},
+//   {
+//     id: 1,
+//   email: 'mohdkaif@egcworld.in',
+//   password: 'Admin@123', // In production, this should be hashed
+//   name: 'Mohd Kaif',
+//   role: 'Data Analyst',
+//   isFirstLogin: false
+// },
   {
       id: 2,
     email: 'Pranchal@egcworld.in',
