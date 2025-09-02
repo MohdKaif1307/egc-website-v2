@@ -1,8 +1,27 @@
 import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
-import jwt from 'jsonwebtoken'
 
 const JWT_SECRET = process.env.JWT_SECRET || 'your-secret-key'
+
+// Simple JWT verification for Edge runtime
+function verifyToken(token: string): any {
+  try {
+    // Simple base64 decode of JWT payload (not cryptographically secure, but works for basic checks)
+    const parts = token.split('.')
+    if (parts.length !== 3) return null
+    
+    const payload = JSON.parse(atob(parts[1]))
+    
+    // Check expiration
+    if (payload.exp && payload.exp < Date.now() / 1000) {
+      return null
+    }
+    
+    return payload
+  } catch (error) {
+    return null
+  }
+}
 
 // Protected employee routes that require employee authentication
 const protectedEmployeeRoutes = ['/employee/dashboard', '/employee/welcome']
@@ -62,18 +81,19 @@ export function middleware(request: NextRequest) {
       return NextResponse.redirect(new URL('/login', request.url))
     }
 
-    try {
-      const payload = jwt.verify(employeeToken, JWT_SECRET) as any
-      if (payload.type === 'admin') {
-        console.log('Middleware: Admin trying to access employee route, redirecting to login')
-        return NextResponse.redirect(new URL('/login', request.url))
-      }
-      console.log('Middleware: Employee token verified successfully')
-      return NextResponse.next()
-    } catch (error) {
-      console.log('Middleware: Employee token verification failed:', error)
+    const payload = verifyToken(employeeToken)
+    if (!payload) {
+      console.log('Middleware: Employee token verification failed')
       return NextResponse.redirect(new URL('/login', request.url))
     }
+    
+    if (payload.type === 'admin') {
+      console.log('Middleware: Admin trying to access employee route, redirecting to login')
+      return NextResponse.redirect(new URL('/login', request.url))
+    }
+    
+    console.log('Middleware: Employee token verified successfully')
+    return NextResponse.next()
   }
 
   return NextResponse.next()

@@ -5,27 +5,19 @@ import jwt from 'jsonwebtoken'
 // This is just for demonstration purposes
 const EMPLOYEES = [
   {
-    id: 1,
-    email: 'Mohdkaif@egcworld.in',
-    password: 'Admin@1307', // In production, this should be hashed
-    name: 'Admin User',
-    role: 'admin',
-    isFirstLogin: false
-  },
-  {
-    id: 2,
+      id: 2,
     email: 'Pranchal@egcworld.in',
     password: 'Pranchal@123', // In production, this should be hashed
-    name: 'Pranchal User',
-    role: 'employee',
+    name: 'Pranchal Jain',
+    role: 'Manager In Stratagic Initiatives',
     isFirstLogin: false
   },
   {
     id: 3,
     email: 'Sarika@egcworld.in',
     password: 'Sarika@123', // In production, this should be hashed
-    name: 'Sarika User',
-    role: 'employee',
+    name: 'Sarika ',
+    role: 'Data Analyst',
     isFirstLogin: false
   }
 ]
