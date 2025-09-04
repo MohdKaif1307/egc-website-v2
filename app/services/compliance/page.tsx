@@ -9,7 +9,7 @@ export default function ComplianceService() {
         <div
           className="absolute inset-0 bg-cover bg-center bg-no-repeat z-0"
           style={{
-            backgroundImage: "url('/images/compliance-bg.jpg')",
+            backgroundImage: "url('/images/compliance solutions.jpg')",
           }}
         ></div>
         <div className="absolute inset-0 bg-black/60 z-10"></div>
@@ -58,7 +58,7 @@ export default function ComplianceService() {
             </div>
             <div className="rounded-xl h-96 overflow-hidden">
               <Image 
-                src="/images/office-meeting.jpg" 
+                src="/images/compliance 2.jpg" 
                 alt="Compliance documentation and regulatory consulting services" 
                 width={600}
                 height={400}

@@ -5,12 +5,12 @@ export default function EatRightIndia() {
   return (
     <>
       {/* Hero Section */}
-      <section className="relative bg-gradient-to-r from-green-800 via-green-700 to-green-600 text-white py-20 overflow-hidden">
+      <section className="relative bg-gradient-to-r from-green-800 via-green-700 to-green-600 text-white py-20 overflow-hidden h-screen max-h-[500px]">
         {/* Background Image */}
         <div
           className="absolute inset-0 bg-cover bg-center bg-no-repeat z-0"
           style={{
-            backgroundImage: "url('/images/eat-right-india-bg.jpg')",
+            backgroundImage: "url('/images/eat right millets.png')",
           }}
         ></div>
         <div className="absolute inset-0 bg-black/60 z-10"></div>
@@ -96,7 +96,7 @@ export default function EatRightIndia() {
 
             <div className="rounded-xl overflow-hidden shadow-2xl">
               <Image 
-                src="/images/eat-right-india-bg.jpg" 
+                src="/images/eat right .jpg" 
                 alt="Eat Right India training session" 
                 width={600}
                 height={400}
@@ -237,7 +237,7 @@ export default function EatRightIndia() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 bg-gradient-to-r from-green-600 to-green-700 text-white">
+      <section className="py-20 bg-gradient-to-r from-green-400 to-primary-900 text-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-3xl md:text-4xl font-bold mb-6">
             Ready to Join the Movement?

@@ -4,12 +4,12 @@ export default function Insights() {
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
       {/* Hero Section */}
-      <section className="relative bg-gradient-to-r from-primary-800 via-primary-700 to-primary-600 text-white py-20 overflow-hidden">
+      <section className="relative bg-gradient-to-r from-primary-800 via-primary-700 to-primary-600 text-white py-20 overflow-hidden h-screen max-h-[500px]">
         {/* Background Image */}
         <div
           className="absolute inset-0 bg-cover bg-center bg-no-repeat z-0"
           style={{
-            backgroundImage: "url('/images/insights-knowledge-bg.jpg')",
+            backgroundImage: "url('/images/insights.jpg')",
           }}
         ></div>
         <div className="absolute inset-0 bg-black/60 z-10"></div>
@@ -18,7 +18,7 @@ export default function Insights() {
             <h1 className="text-4xl md:text-6xl font-bold mb-6">
               Insights & Expert Analysis
             </h1>
-            <p className="text-xl md:text-2xl mb-8 text-blue-100 max-w-4xl mx-auto">
+            <p className="text-xl md:text-2xl mb-8 text-white-100 max-w-4xl mx-auto">
               Stay informed with the latest industry trends, regulatory updates, and expert insights to drive your business success
             </p>
           </div>
@@ -35,7 +35,7 @@ export default function Insights() {
             <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden card-hover">
               <div className="relative h-48">
                 <Image 
-                  src="/images/legal-metrology-blog.jpg" 
+                  src="/images/legal3.jpg" 
                   alt="Legal Metrology Guide" 
                   fill
                   className="object-cover"
@@ -56,7 +56,7 @@ export default function Insights() {
             <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden card-hover">
               <div className="relative h-48">
                 <Image 
-                  src="/images/eat-right-india-bg.jpg" 
+                  src="/images/eatright.jpg" 
                   alt="Eat Right India Initiative" 
                   fill
                   className="object-cover"
@@ -77,7 +77,7 @@ export default function Insights() {
             <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden card-hover">
               <div className="relative h-48">
                 <Image 
-                  src="/images/business-challenges-blog.jpg" 
+                  src="/images/business-challenges.jpg" 
                   alt="Business Challenges 2025" 
                   fill
                   className="object-cover"
@@ -144,8 +144,8 @@ export default function Insights() {
         </section>
 
         {/* Newsletter Subscription */}
-        <section className="bg-gradient-to-r from-primary-600 to-primary-700 rounded-2xl p-8 text-white text-center">
-          <h2 className="text-2xl md:text-3xl font-bold mb-4">Stay Updated</h2>
+        <section className="bg-gradient-to-r from-green-500 to-primary-700 rounded-2xl p-8 text-white text-center">
+          <h2 className="text-2xl md:text-4xl font-bold mb-4">Stay Updated</h2>
           <p className="text-primary-100 mb-6 max-w-2xl mx-auto">
             Subscribe to our newsletter and get the latest insights, regulatory updates, and expert analysis delivered straight to your inbox.
           </p>
@@ -154,7 +154,7 @@ export default function Insights() {
             <input
               type="email"
               placeholder="Enter your email address"
-              className="flex-1 px-4 py-3 rounded-lg text-gray-900 focus:outline-none focus:ring-2 focus:ring-primary-100"
+              className="flex-1 px-4 py-3 rounded-lg text-white-900 focus:outline-black focus:ring-2 focus:ring-black-100"
             />
             <button className="bg-accent-600 hover:bg-accent-700 text-white px-6 py-3 rounded-lg font-semibold transition-colors">
               Subscribe

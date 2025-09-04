@@ -1,22 +1,22 @@
 export default function Projects() {
   return (
-    <>
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
       {/* Hero Section */}
-      <section className="relative bg-gradient-to-r from-blue-900 via-blue-800 to-blue-700 text-white py-20 overflow-hidden">
+      <section className="relative bg-gradient-to-r from-blue-900 via-blue-800 to-blue-700 text-white py-20 overflow-hidden h-screen max-h-[580px]">
         {/* Background Image */}
-        <div className="absolute inset-0 bg-black/40 z-0"></div>
-                <div
+        <div className="absolute inset-0 bg-black/60 z-10"></div>
+        <div
           className="absolute inset-0 bg-cover bg-center bg-no-repeat z-0"
           style={{
-            backgroundImage: "url('/images/projects-main-bg.jpg')",
+            backgroundImage: "url('/images/Regulatory-Projects.png')",
           }}
         ></div>
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
-            <h1 className="text-4xl md:text-6xl font-bold mb-6">
+            <h1 className="text-4xl md:text-6xl font-bold mb-10">
               Regulatory Project Implementation
             </h1>
-            <p className="text-xl md:text-2xl mb-8 text-blue-100 max-w-4xl mx-auto">
+            <p className="text-xl md:text-2xl mb-8 text-white-100 max-w-4xl mx-auto">
               We partner with government bodies and organizations to implement critical regulatory initiatives that impact businesses and consumers across India.
             </p>
             <a 
@@ -61,13 +61,8 @@ export default function Projects() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
             {/* Eat Right India Initiative */}
             <div className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
-              <div className="h-48 bg-gradient-to-r from-green-500 to-green-600 flex items-center justify-center">
-                <div className="text-white text-center">
-                  <svg className="w-16 h-16 mx-auto mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-                  </svg>
-                  <p className="text-lg font-semibold">Eat Right India</p>
-                </div>
+              <div className="h-48 overflow-hidden">
+                <img src="/images/Eat-Right-2.jpg" alt="Eat Right India Initiative" className="w-full h-full object-cover" />
               </div>
               <div className="p-8">
                 <h3 className="text-2xl font-bold text-gray-900 mb-4">
@@ -128,13 +123,8 @@ export default function Projects() {
 
             {/* Legal Metrology Affairs */}
             <div className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
-              <div className="h-48 bg-gradient-to-r from-blue-500 to-blue-600 flex items-center justify-center">
-                <div className="text-white text-center">
-                  <svg className="w-16 h-16 mx-auto mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
-                  </svg>
-                  <p className="text-lg font-semibold">Legal Metrology</p>
-                </div>
+              <div className="h-48 overflow-hidden">
+                <img src="/images/legal.jpg" alt="Legal Metrology Affairs" className="w-full h-full object-cover" />
               </div>
               <div className="p-8">
                 <h3 className="text-2xl font-bold text-gray-900 mb-4">
@@ -336,12 +326,12 @@ export default function Projects() {
       </section>
 
       {/* CTA Section */}
-      <section className="bg-blue-600 text-white py-20">
+      <section className="bg-gradient-to-r from-primary-800 text-white py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-3xl md:text-4xl font-bold mb-6">
             Ready to Partner on Regulatory Projects?
           </h2>
-          <p className="text-xl mb-8 text-blue-100 max-w-3xl mx-auto">
+          <p className="text-xl mb-8 text-white-100 max-w-3xl mx-auto">
             Let's discuss how we can help implement regulatory initiatives that drive compliance and create positive impact across your industry.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -360,6 +350,6 @@ export default function Projects() {
           </div>
         </div>
       </section>
-    </>
+    </div>
   );
 }

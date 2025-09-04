@@ -1,30 +1,15 @@
 import Image from "next/image";
 import AnimatedCounter from "../components/AnimatedCounter";
+import Hero from "../components/Hero";
 
 export default function About() {
   return (
     <>
-      {/* Hero Section */}
-      <section className="relative bg-gradient-to-r from-primary-800 via-primary-700 to-primary-600 text-white py-20 overflow-hidden">
-        {/* Background Image */}
-        <div
-          className="absolute inset-0 bg-cover bg-center bg-no-repeat z-0"
-          style={{
-            backgroundImage: "url('/images/about-us-bg.jpg')",
-          }}
-        ></div>
-        <div className="absolute inset-0 bg-black/60 z-10"></div>
-        <div className="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center">
-            <h1 className="text-4xl md:text-5xl font-bold mb-6">
-              About EGC World
-            </h1>
-            <p className="text-xl text-blue-100 max-w-3xl mx-auto">
-              Empowering businesses through expert consultancy, regulatory compliance, and strategic growth solutions for over a decade.
-            </p>
-          </div>
-        </div>
-      </section>
+      <Hero
+        backgroundImage="/images/about-us.jpg"
+        title="About EGC World"
+        subtitle="Empowering businesses through expert consultancy, regulatory compliance, and strategic growth solutions for over a decade."
+      />
 
       {/* Our Story */}
       <section className="py-20">
@@ -184,7 +169,7 @@ export default function About() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 bg-gradient-to-r from-blue-600 to-purple-600 text-white">
+      <section className="py-20 text-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-3xl md:text-4xl font-bold mb-6">
             Ready to Transform Your Business?

@@ -9,7 +9,7 @@ export default function MarketingService() {
         <div
           className="absolute inset-0 bg-cover bg-center bg-no-repeat z-0"
           style={{
-            backgroundImage: "url('/images/marketing-strategy-bg.jpg')",
+            backgroundImage: "url('/images/marketing.jpg')",
           }}
         ></div>
         <div className="absolute inset-0 bg-black/60 z-10"></div>
@@ -58,7 +58,7 @@ export default function MarketingService() {
             </div>
             <div className="rounded-xl h-96 overflow-hidden">
               <Image 
-                src="/images/business-growth.jpg" 
+                src="/images/marketing 2.jpg" 
                 alt="Marketing strategy and business growth through digital marketing campaigns" 
                 width={600}
                 height={400}

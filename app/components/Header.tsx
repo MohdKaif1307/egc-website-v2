@@ -7,6 +7,7 @@ import Image from "next/image";
 function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isDarkMode, setIsDarkMode] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -14,26 +15,58 @@ function Header() {
       setIsScrolled(scrollTop > 10);
     };
 
+    const handleThemeChange = () => {
+      // Check multiple ways dark mode might be detected
+      const isDark = document.documentElement.classList.contains('dark') || 
+                    document.body.classList.contains('dark') ||
+                    window.matchMedia('(prefers-color-scheme: dark)').matches;
+      setIsDarkMode(isDark);
+      console.log('Dark mode detected:', isDark, 'Scrolled:', isScrolled);
+      console.log('Document classes:', document.documentElement.classList.toString());
+      console.log('Body classes:', document.body.classList.toString());
+    };
+
+    // Initial check
+    handleThemeChange();
+
     window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    
+    // Listen for theme changes
+    const observer = new MutationObserver(handleThemeChange);
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ['class']
+    });
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      observer.disconnect();
+    };
   }, []);
 
   return (
     <header className={`sticky top-0 z-50 transition-all duration-300 ${
       isScrolled 
-        ? 'bg-white/10 dark:bg-gray-900/80 backdrop-blur-lg shadow-lg' 
-        : 'bg-white dark:bg-gray-900 shadow-lg'
+        ? 'bg-primary-500 shadow-lg' 
+        : 'bg-transparent'
     }`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center py-3">
+        <div className={`flex justify-between items-center py-3 ${
+          isScrolled ? '' : 'bg-transparent'
+        }`}>
           <div className="flex items-center">
             <Link href="/" className="flex items-center space-x-3 text-gray-900 dark:text-white">
               <Image 
                 src="/images/egc-logo.svg" 
                 alt="EGC World Logo" 
-                width={60} 
-                height={60} 
-                className="h-25 w-auto dark:invert dark:brightness-0 dark:contrast-100" 
+                width={50} 
+                height={50} 
+                className="h-20 w-auto transition-all duration-300"
+                style={{
+                  filter: (isScrolled || (!isScrolled && isDarkMode)) 
+                    ? 'brightness(0) invert(1)' 
+                    : 'none'
+                }} 
               />
               {/* <div className="hidden sm:block">
                 <h1 className="text-xl font-bold text-primary-800">EGC World</h1>
@@ -43,12 +76,18 @@ function Header() {
           </div>
           
           <nav className="hidden md:flex items-center space-x-6">
-            <Link href="/" className="text-gray-700 dark:text-gray-300 hover:text-primary-600 transition-colors font-medium text-xl">Home</Link>
-            <Link href="/about" className="text-gray-700 dark:text-gray-300 hover:text-primary-600 transition-colors font-medium text-xl">About Us</Link>
+            <Link href="/" className={`transition-colors font-medium text-xl ${
+              isScrolled ? 'text-white hover:text-amber-200' : 'text-gray-900 dark:text-white hover:text-amber-600'
+            }`}>Home</Link>
+            <Link href="/about" className={`transition-colors font-medium text-xl ${
+              isScrolled ? 'text-white hover:text-amber-200' : 'text-gray-900 dark:text-white hover:text-amber-600'
+            }`}>About Us</Link>
             
             {/* Services Dropdown */}
             <div className="relative group">
-              <button className="text-gray-700 dark:text-gray-300 hover:text-primary-600 transition-colors flex items-center font-medium text-xl">
+              <button className={`transition-colors flex items-center font-medium text-xl ${
+                isScrolled ? 'text-white hover:text-amber-200' : 'text-gray-900 dark:text-white hover:text-amber-600'
+              }`}>
                 Services
                 <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
@@ -77,7 +116,9 @@ function Header() {
             
             {/* Regulatory Projects Dropdown */}
             <div className="relative group">
-              <button className="text-gray-700 dark:text-gray-300 hover:text-primary-600 transition-colors flex items-center font-medium text-xl">
+              <button className={`transition-colors flex items-center font-medium text-xl ${
+                isScrolled ? 'text-white hover:text-amber-200' : 'text-gray-900 dark:text-white hover:text-amber-200'
+              }`}>
                 Regulatory Projects
                 <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
@@ -95,10 +136,14 @@ function Header() {
               </div>
             </div>
             
-            <Link href="/insights" className="text-gray-700 dark:text-gray-300 hover:text-primary-600 transition-colors font-medium text-xl">Insights / Blog</Link>
+            <Link href="/insights" className={`transition-colors font-medium text-xl ${
+              isScrolled ? 'text-white hover:text-amber-200' : 'text-gray-900 dark:text-white hover:text-amber-600'
+            }`}>Insights / Blog</Link>
             
             {/* Profile/Login Icon */}
-            <Link href="/login" className="text-gray-700 dark:text-gray-300 hover:text-primary-600 transition-colors p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800">
+            <Link href="/login" className={`transition-colors p-2 rounded-lg ${
+              isScrolled ? 'text-white hover:text-amber-200 hover:bg-amber-700' : 'text-gray-900 dark:text-white hover:text-amber-600 hover:bg-amber-100'
+            }`}>
               <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
               </svg>
@@ -116,7 +161,9 @@ function Header() {
           <div className="md:hidden">
             <button 
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="text-gray-700 dark:text-gray-300 hover:text-primary-600 transition-colors"
+              className={`transition-colors ${
+                isScrolled ? 'text-white hover:text-amber-200' : 'text-gray-900 dark:text-white hover:text-amber-600'
+              }`}
             >
               {isMenuOpen ? (
                 <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -133,18 +180,24 @@ function Header() {
 
         {/* Mobile Navigation Menu */}
         {isMenuOpen && (
-          <div className="md:hidden border-t border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900">
+          <div className={`md:hidden border-t ${
+            isScrolled ? 'border-amber-700 bg-amber-800' : 'border-gray-200 bg-white dark:bg-gray-900'
+          }`}>
             <div className="px-4 py-6 space-y-4">
               <Link 
                 href="/" 
-                className="block text-gray-700 dark:text-gray-300 hover:text-primary-600 transition-colors text-lg font-medium"
+                className={`block transition-colors text-lg font-medium ${
+                  isScrolled ? 'text-white hover:text-amber-200' : 'text-gray-900 dark:text-white hover:text-amber-600'
+                }`}
                 onClick={() => setIsMenuOpen(false)}
               >
                 Home
               </Link>
               <Link 
                 href="/about" 
-                className="block text-gray-700 dark:text-gray-300 hover:text-primary-600 transition-colors text-lg font-medium"
+                className={`block transition-colors text-lg font-medium ${
+                  isScrolled ? 'text-white hover:text-amber-200' : 'text-gray-900 dark:text-white hover:text-amber-600'
+                }`}
                 onClick={() => setIsMenuOpen(false)}
               >
                 About Us
@@ -152,39 +205,51 @@ function Header() {
               
               {/* Services Section */}
               <div className="space-y-2">
-                <p className="text-gray-900 dark:text-gray-100 font-semibold text-lg">Services</p>
+                <p className={`font-semibold text-lg ${
+                  isScrolled ? 'text-white' : 'text-gray-900 dark:text-white'
+                }`}>Services</p>
                 <div className="pl-4 space-y-2">
                   <Link 
                     href="/services/consulting" 
-                    className="block text-gray-600 dark:text-gray-400 hover:text-primary-600 transition-colors"
+                    className={`block transition-colors ${
+                      isScrolled ? 'text-amber-100 hover:text-white' : 'text-gray-600 dark:text-gray-400 hover:text-amber-600'
+                    }`}
                     onClick={() => setIsMenuOpen(false)}
                   >
                     Business & Management Consulting
                   </Link>
                   <Link 
                     href="/services/training" 
-                    className="block text-gray-600 dark:text-gray-400 hover:text-primary-600 transition-colors"
+                    className={`block transition-colors ${
+                      isScrolled ? 'text-amber-100 hover:text-white' : 'text-gray-600 dark:text-gray-400 hover:text-amber-600'
+                    }`}
                     onClick={() => setIsMenuOpen(false)}
                   >
                     Learning & Development Programs
                   </Link>
                   <Link 
                     href="/services/compliance" 
-                    className="block text-gray-600 dark:text-gray-400 hover:text-primary-600 transition-colors"
+                    className={`block transition-colors ${
+                      isScrolled ? 'text-amber-100 hover:text-white' : 'text-gray-600 dark:text-gray-400 hover:text-amber-600'
+                    }`}
                     onClick={() => setIsMenuOpen(false)}
                   >
                     Corporate Compliance Solutions
                   </Link>
                   <Link 
                     href="/services/seo" 
-                    className="block text-gray-600 dark:text-gray-400 hover:text-primary-600 transition-colors"
+                    className={`block transition-colors ${
+                      isScrolled ? 'text-amber-100 hover:text-white' : 'text-gray-600 dark:text-gray-400 hover:text-amber-600'
+                    }`}
                     onClick={() => setIsMenuOpen(false)}
                   >
                     SEO Optimization
                   </Link>
                   <Link 
                     href="/services/marketing" 
-                    className="block text-gray-600 dark:text-gray-400 hover:text-primary-600 transition-colors"
+                    className={`block transition-colors ${
+                      isScrolled ? 'text-amber-100 hover:text-white' : 'text-gray-600 dark:text-gray-400 hover:text-amber-600'
+                    }`}
                     onClick={() => setIsMenuOpen(false)}
                   >
                     Marketing for Your Brand
@@ -194,18 +259,24 @@ function Header() {
 
               {/* Regulatory Projects Section */}
               <div className="space-y-2">
-                <p className="text-gray-900 dark:text-gray-100 font-semibold text-lg">Regulatory Projects</p>
+                <p className={`font-semibold text-lg ${
+                  isScrolled ? 'text-white' : 'text-gray-900 dark:text-white'
+                }`}>Regulatory Projects</p>
                 <div className="pl-4 space-y-2">
                   <Link 
                     href="/projects/eat-right-india" 
-                    className="block text-gray-600 dark:text-gray-400 hover:text-primary-600 transition-colors"
+                    className={`block transition-colors ${
+                      isScrolled ? 'text-amber-100 hover:text-white' : 'text-gray-600 dark:text-gray-400 hover:text-amber-600'
+                    }`}
                     onClick={() => setIsMenuOpen(false)}
                   >
                     Eat Right India Initiative
                   </Link>
                   <Link 
                     href="/projects/legal-metrology" 
-                    className="block text-gray-600 dark:text-gray-400 hover:text-primary-600 transition-colors"
+                    className={`block transition-colors ${
+                      isScrolled ? 'text-amber-100 hover:text-white' : 'text-gray-600 dark:text-gray-400 hover:text-amber-600'
+                    }`}
                     onClick={() => setIsMenuOpen(false)}
                   >
                     Legal Metrology Affairs
@@ -215,7 +286,9 @@ function Header() {
 
               <Link 
                 href="/insights" 
-                className="block text-gray-700 dark:text-gray-300 hover:text-primary-600 transition-colors text-lg font-medium"
+                className={`block transition-colors text-lg font-medium ${
+                  isScrolled ? 'text-white hover:text-amber-200' : 'text-gray-900 dark:text-white hover:text-amber-600'
+                }`}
                 onClick={() => setIsMenuOpen(false)}
               >
                 Insights / Blog
@@ -223,7 +296,9 @@ function Header() {
 
               <Link 
                 href="/login" 
-                className="flex items-center text-gray-700 dark:text-gray-300 hover:text-primary-600 transition-colors text-lg font-medium"
+                className={`flex items-center transition-colors text-lg font-medium ${
+                  isScrolled ? 'text-white hover:text-amber-200' : 'text-gray-900 dark:text-white hover:text-amber-600'
+                }`}
                 onClick={() => setIsMenuOpen(false)}
               >
                 <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">

@@ -86,7 +86,7 @@ function Footer() {
               </p>
               <p className="flex items-start">
                 <span className="mr-2 mt-1">📍</span>
-                <span>614, Eros City Square, Gurugram, Haryana, 122018</span>
+                <span>606, Eros City Square, Gurugram, Haryana, 122018</span>
               </p>
             </div>
           </div>

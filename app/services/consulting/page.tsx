@@ -9,7 +9,7 @@ export default function ConsultingService() {
         <div
           className="absolute inset-0 bg-cover bg-center bg-no-repeat z-0"
           style={{
-            backgroundImage: "url('/images/consulting-services-bg.jpg')",
+            backgroundImage: "url('/images/management-consulting-services.jpg')",
           }}
         ></div>
         <div className="absolute inset-0 bg-black/60 z-10"></div>
@@ -46,10 +46,10 @@ export default function ConsultingService() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div>
-              <h2 className="text-3xl md:text-4xl font-bold text-White-900 mb-6">
+              <h2 className="text-3xl md:text-4xl font-bold text-Black-900 mb-6">
                 Transform Your Business with Expert Guidance
               </h2>
-              <p className="text-lg text-White-600 mb-6">
+              <p className="text-lg text-black-600 mb-6">
                 Our business and management consulting services are designed to help organizations of all sizes navigate challenges, optimize operations, and achieve sustainable growth. We provide strategic insights backed by years of industry experience.
               </p>
               <p className="text-lg text-White-600 mb-8">
@@ -58,7 +58,7 @@ export default function ConsultingService() {
             </div>
             <div className="rounded-xl h-96 overflow-hidden">
               <Image 
-                src="/images/team-collaboration.jpg" 
+                src="/images/consulting.jpg" 
                 alt="Business strategy consulting and team collaboration" 
                 width={600}
                 height={400}

@@ -1,46 +1,35 @@
+import Hero from "../components/Hero";
+import Accordion from "../components/Accordion";
+
 export default function Services() {
   return (
     <>
-      {/* Hero Section */}
-      <section className="relative bg-gradient-to-r from-blue-900 via-blue-800 to-blue-700 text-white py-20 overflow-hidden">
-        {/* Background Image */}
-        <div className="absolute inset-0 bg-black/40 z-0"></div>
-                <div
-          className="absolute inset-0 bg-cover bg-center bg-no-repeat z-0"
-          style={{
-            backgroundImage: "url('/images/business-consulting-bg.jpg')",
-          }}
-        ></div>
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center">
-            <h1 className="text-4xl md:text-6xl font-bold mb-6">
-              Comprehensive Services Tailored to Your Business Needs
-            </h1>
-            <p className="text-xl md:text-2xl mb-8 text-blue-100 max-w-4xl mx-auto">
-              From compliance to brand growth, our services are designed to simplify challenges and unlock new opportunities for businesses of all sizes.
-            </p>
-            <a 
-              href="/contact" 
-              className="bg-white text-blue-600 hover:bg-gray-100 px-8 py-4 rounded-lg font-semibold text-lg transition-colors"
-            >
-              Talk to Our Experts
-            </a>
-          </div>
-        </div>
-      </section>
+      <Hero
+        backgroundImage="/images/our services.jpg"
+        title="Comprehensive Services Tailored to Your Business Needs"
+        subtitle="From compliance to brand growth, our services are designed to simplify challenges and unlock new opportunities for businesses of all sizes."
+        gradient="from-blue-900 via-blue-800 to-blue-700"
+      >
+        <a 
+          href="/contact" 
+          className="bg-white text-blue-600 hover:bg-gray-100 px-8 py-4 rounded-lg font-semibold text-lg transition-colors"
+        >
+          Talk to Our Experts
+        </a>
+      </Hero>
 
       {/* Business & Management Consulting */}
       <section className="py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div>
-              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
+              <h2 className="text-3xl md:text-4xl font-bold text-white-900 mb-6">
                 1. Business & Management Consulting
               </h2>
-              <p className="text-lg text-gray-600 mb-6">
+              <p className="text-lg text-white-600 mb-6">
                 Running a business today means facing complex challenges — from compliance issues to operational inefficiencies. At EGC World, our consulting services are designed to help organizations overcome these obstacles and unlock growth.
               </p>
-              <p className="text-lg text-gray-600 mb-8">
+              <p className="text-lg text-white-600 mb-8">
                 We work with businesses of all sizes to:
               </p>
               <ul className="space-y-3 mb-8">
@@ -48,41 +37,36 @@ export default function Services() {
                   <svg className="w-5 h-5 text-blue-600 mr-3 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                   </svg>
-                  <span className="text-gray-700">Analyze operations and identify bottlenecks.</span>
+                  <span className="text-white-700">Analyze operations and identify bottlenecks.</span>
                 </li>
                 <li className="flex items-start">
                   <svg className="w-5 h-5 text-blue-600 mr-3 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                   </svg>
-                  <span className="text-gray-700">Design strategies that improve efficiency and reduce risk.</span>
+                  <span className="text-white-700">Design strategies that improve efficiency and reduce risk.</span>
                 </li>
                 <li className="flex items-start">
                   <svg className="w-5 h-5 text-blue-600 mr-3 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                   </svg>
-                  <span className="text-gray-700">Ensure compliance with regulatory requirements.</span>
+                  <span className="text-white-700">Ensure compliance with regulatory requirements.</span>
                 </li>
                 <li className="flex items-start">
                   <svg className="w-5 h-5 text-blue-600 mr-3 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                   </svg>
-                  <span className="text-gray-700">Support growth through financial planning, process improvements, and organizational restructuring.</span>
+                  <span className="text-white-700">Support growth through financial planning, process improvements, and organizational restructuring.</span>
                 </li>
               </ul>
-              <p className="text-lg text-gray-600 mb-8">
+              <p className="text-lg text-white-600 mb-8">
                 Whether you're a startup setting up your systems or an established enterprise seeking efficiency, our consulting team brings decades of combined experience to guide your success.
               </p>
               <a href="/contact" className="text-blue-600 hover:text-blue-700 font-semibold">
                 Explore Consulting Services →
               </a>
             </div>
-            <div className="bg-gray-200 rounded-xl h-96 flex items-center justify-center">
-              <div className="text-center text-gray-500">
-                <svg className="w-24 h-24 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
-                </svg>
-                <p>Business Consulting</p>
-              </div>
+            <div className="rounded-xl h-96 overflow-hidden">
+              <img src="/images/consulting 2.jpg" alt="Business & Management Consulting" className="w-full h-full object-cover" />
             </div>
           </div>
         </div>
@@ -92,13 +76,8 @@ export default function Services() {
       <section className="py-20 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <div className="order-2 lg:order-1 bg-gray-200 rounded-xl h-96 flex items-center justify-center">
-              <div className="text-center text-gray-500">
-                <svg className="w-24 h-24 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
-                </svg>
-                <p>Training Programs</p>
-              </div>
+            <div className="order-2 lg:order-1 rounded-xl h-96 overflow-hidden">
+              <img src="/images/L&D Services.jpg" alt="Learning & Development Programs" className="w-full h-full object-cover" />
             </div>
             <div className="order-1 lg:order-2">
               <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
@@ -152,13 +131,13 @@ export default function Services() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div>
-              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
+              <h2 className="text-3xl md:text-4xl font-bold text-white-900 mb-6">
                 3. Corporate Compliance Solutions
               </h2>
-              <p className="text-lg text-gray-600 mb-6">
+              <p className="text-lg text-white-600 mb-6">
                 Staying compliant with laws and regulations can be overwhelming. Non-compliance not only brings legal risks but also damages reputation.
               </p>
-              <p className="text-lg text-gray-600 mb-8">
+              <p className="text-lg text-white-600 mb-8">
                 Our compliance experts simplify the process by offering:
               </p>
               <ul className="space-y-3 mb-8">
@@ -166,41 +145,36 @@ export default function Services() {
                   <svg className="w-5 h-5 text-purple-600 mr-3 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                   </svg>
-                  <span className="text-gray-700"><strong>Regulatory Monitoring</strong> – staying updated on changing laws.</span>
+                  <span className="text-white-700"><strong>Regulatory Monitoring</strong> – staying updated on changing laws.</span>
                 </li>
                 <li className="flex items-start">
                   <svg className="w-5 h-5 text-purple-600 mr-3 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                   </svg>
-                  <span className="text-gray-700"><strong>Compliance Audits</strong> – identifying gaps before they become problems.</span>
+                  <span className="text-white-700"><strong>Compliance Audits</strong> – identifying gaps before they become problems.</span>
                 </li>
                 <li className="flex items-start">
                   <svg className="w-5 h-5 text-purple-600 mr-3 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                   </svg>
-                  <span className="text-gray-700"><strong>Documentation Support</strong> – preparing and maintaining required records.</span>
+                  <span className="text-white-700"><strong>Documentation Support</strong> – preparing and maintaining required records.</span>
                 </li>
                 <li className="flex items-start">
                   <svg className="w-5 h-5 text-purple-600 mr-3 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                   </svg>
-                  <span className="text-gray-700"><strong>Risk Management</strong> – ensuring smooth operations without legal hurdles.</span>
+                  <span className="text-white-700"><strong>Risk Management</strong> – ensuring smooth operations without legal hurdles.</span>
                 </li>
               </ul>
-              <p className="text-lg text-gray-600 mb-8">
+              <p className="text-lg text-white-600 mb-8">
                 We help businesses in sectors like food, retail, manufacturing, and services stay fully compliant so they can focus on growth without worrying about penalties.
               </p>
               <a href="/contact" className="text-purple-600 hover:text-purple-700 font-semibold">
                 Get Compliance Support →
               </a>
             </div>
-            <div className="bg-gray-200 rounded-xl h-96 flex items-center justify-center">
-              <div className="text-center text-gray-500">
-                <svg className="w-24 h-24 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-                </svg>
-                <p>Compliance Solutions</p>
-              </div>
+            <div className="rounded-xl h-96 overflow-hidden">
+              <img src="/images/compliance-services.jpg" alt="Corporate Compliance Solutions" className="w-full h-full object-cover" />
             </div>
           </div>
         </div>
@@ -210,13 +184,8 @@ export default function Services() {
       <section className="py-20 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <div className="order-2 lg:order-1 bg-gray-200 rounded-xl h-96 flex items-center justify-center">
-              <div className="text-center text-gray-500">
-                <svg className="w-24 h-24 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                </svg>
-                <p>SEO Services</p>
-              </div>
+            <div className="order-2 lg:order-1 rounded-xl h-96 overflow-hidden">
+              <img src="/images/Seo-Services.jpg" alt="SEO Optimization Services" className="w-full h-full object-cover" />
             </div>
             <div className="order-1 lg:order-2">
               <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
@@ -270,13 +239,13 @@ export default function Services() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div>
-              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
+              <h2 className="text-3xl md:text-4xl font-bold text-white-900 mb-6">
                 5. Marketing for Your Brand
               </h2>
-              <p className="text-lg text-gray-600 mb-6">
+              <p className="text-lg text-white-600 mb-6">
                 Building a brand is more than advertising — it's about telling your story. Our marketing services help businesses connect with the right customers through the right channels.
               </p>
-              <p className="text-lg text-gray-600 mb-8">
+              <p className="text-lg text-white-600 mb-8">
                 We specialize in:
               </p>
               <ul className="space-y-3 mb-8">
@@ -284,41 +253,36 @@ export default function Services() {
                   <svg className="w-5 h-5 text-red-600 mr-3 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                   </svg>
-                  <span className="text-gray-700"><strong>Digital Marketing Campaigns</strong> – targeted campaigns that deliver ROI.</span>
+                  <span className="text-white-700"><strong>Digital Marketing Campaigns</strong> – targeted campaigns that deliver ROI.</span>
                 </li>
                 <li className="flex items-start">
                   <svg className="w-5 h-5 text-red-600 mr-3 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                   </svg>
-                  <span className="text-gray-700"><strong>Social Media Marketing</strong> – building engagement and brand recognition.</span>
+                  <span className="text-white-700"><strong>Social Media Marketing</strong> – building engagement and brand recognition.</span>
                 </li>
                 <li className="flex items-start">
                   <svg className="w-5 h-5 text-red-600 mr-3 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                   </svg>
-                  <span className="text-gray-700"><strong>Content Marketing</strong> – blogs, articles, and resources that establish authority.</span>
+                  <span className="text-white-700"><strong>Content Marketing</strong> – blogs, articles, and resources that establish authority.</span>
                 </li>
                 <li className="flex items-start">
                   <svg className="w-5 h-5 text-red-600 mr-3 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                   </svg>
-                  <span className="text-gray-700"><strong>Integrated Marketing Strategies</strong> – combining online and offline efforts for maximum reach.</span>
+                  <span className="text-white-700"><strong>Integrated Marketing Strategies</strong> – combining online and offline efforts for maximum reach.</span>
                 </li>
               </ul>
-              <p className="text-lg text-gray-600 mb-8">
+              <p className="text-lg text-white-600 mb-8">
                 Whether you're launching a new product or scaling your business, we ensure your brand stands out in a competitive market.
               </p>
               <a href="/contact" className="text-red-600 hover:text-red-700 font-semibold">
                 Grow My Brand →
               </a>
             </div>
-            <div className="bg-gray-200 rounded-xl h-96 flex items-center justify-center">
-              <div className="text-center text-gray-500">
-                <svg className="w-24 h-24 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 100-6M5.436 13.683A4.001 4.001 0 017 6h1.832c4.1 0 7.625-1.234 9.168-3v14c-1.543-1.766-5.067-3-9.168-3H7a3.988 3.988 0 01-1.564-.317z" />
-                </svg>
-                <p>Brand Marketing</p>
-              </div>
+            <div className="rounded-xl h-96 overflow-hidden">
+              <img src="/images/Marketing-Services.jpg" alt="Marketing for Your Brand" className="w-full h-full object-cover" />
             </div>
           </div>
         </div>
@@ -382,46 +346,36 @@ export default function Services() {
         </div>
       </section>
 
-      {/* FAQs */}
-      <section className="py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-              Frequently Asked Questions (FAQs)
-            </h2>
-          </div>
-          
-          <div className="max-w-4xl mx-auto space-y-8">
-            <div className="bg-white rounded-xl shadow-lg p-8">
-              <h3 className="text-xl font-semibold text-gray-900 mb-4">Q1. What industries do you serve?</h3>
-              <p className="text-gray-600">
-                We work with businesses in food, retail, manufacturing, services, and startups — tailoring our services to each industry's unique needs.
-              </p>
-            </div>
-
-            <div className="bg-white rounded-xl shadow-lg p-8">
-              <h3 className="text-xl font-semibold text-gray-900 mb-4">Q2. Do you provide customized consulting packages?</h3>
-              <p className="text-gray-600">
-                Yes, every client's challenges are different. We design packages that fit your business size, industry, and goals.
-              </p>
-            </div>
-
-            <div className="bg-white rounded-xl shadow-lg p-8">
-              <h3 className="text-xl font-semibold text-gray-900 mb-4">Q3. How do your training programs differ from others?</h3>
-              <p className="text-gray-600">
-                Our training is interactive, measurable, and practical, ensuring real results instead of theoretical sessions.
-              </p>
-            </div>
-
-            <div className="bg-white rounded-xl shadow-lg p-8">
-              <h3 className="text-xl font-semibold text-gray-900 mb-4">Q4. How quickly can we see results from SEO services?</h3>
-              <p className="text-gray-600">
-                SEO is a long-term investment. Typically, our clients see measurable improvements within 3–6 months.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
+      <Accordion
+        title="Frequently Asked Questions (FAQs)"
+        subtitle="Get answers to common questions about our services"
+        items={[
+          {
+            question: "What industries do you serve?",
+            answer: "We work with businesses in food, retail, manufacturing, services, and startups — tailoring our services to each industry's unique needs."
+          },
+          {
+            question: "Do you provide customized consulting packages?",
+            answer: "Yes, every client's challenges are different. We design packages that fit your business size, industry, and goals."
+          },
+          {
+            question: "How do your training programs differ from others?",
+            answer: "Our training is interactive, measurable, and practical, ensuring real results instead of theoretical sessions."
+          },
+          {
+            question: "How quickly can we see results from SEO services?",
+            answer: "SEO is a long-term investment. Typically, our clients see measurable improvements within 3–6 months."
+          },
+          {
+            question: "What makes your compliance solutions unique?",
+            answer: "Our compliance solutions combine regulatory expertise with practical implementation strategies, ensuring your business not only meets requirements but also operates more efficiently."
+          },
+          {
+            question: "Do you offer ongoing support after project completion?",
+            answer: "Yes, we provide ongoing support and maintenance to ensure your solutions continue to work effectively and adapt to changing business needs."
+          }
+        ]}
+      />
 
       {/* CTA Section */}
       <section className="bg-blue-600 text-white py-20">

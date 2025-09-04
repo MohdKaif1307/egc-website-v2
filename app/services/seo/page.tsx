@@ -9,7 +9,7 @@ export default function SEOService() {
         <div
           className="absolute inset-0 bg-cover bg-center bg-no-repeat z-0"
           style={{
-            backgroundImage: "url('/images/seo-digital-bg.jpg')",
+            backgroundImage: "url('/images/seo.jpg')",
           }}
         ></div>
         <div className="absolute inset-0 bg-black/60 z-10"></div>
@@ -58,7 +58,7 @@ export default function SEOService() {
             </div>
             <div className="rounded-xl h-96 overflow-hidden">
               <Image 
-                src="/images/business-growth.jpg" 
+                src="/images/seo 2.jpg" 
                 alt="SEO optimization strategies for business growth and online visibility" 
                 width={600}
                 height={400}

@@ -10,7 +10,7 @@ export default function TrainingService() {
                 <div
           className="absolute inset-0 bg-cover bg-center bg-no-repeat z-0"
           style={{
-            backgroundImage: "url('/images/training-bg.jpg')",
+            backgroundImage: "url('/images/L&D.jpg')",
           }}
         ></div>
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -58,7 +58,7 @@ export default function TrainingService() {
             </div>
             <div className="rounded-xl h-96 overflow-hidden">
               <Image 
-                src="/images/team-collaboration.jpg" 
+                src="/images/team-L&D.jpg" 
                 alt="Professional training and development programs for teams" 
                 width={600}
                 height={400}
