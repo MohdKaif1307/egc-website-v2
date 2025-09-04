@@ -67,20 +67,20 @@ export async function POST(request: NextRequest) {
     const pageContent = `import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: '${blogData.title} | EGC World',
-  description: '${blogData.metaDescription || blogData.excerpt}',
-  keywords: '${blogData.keywords}',
+  title: ${JSON.stringify(`${blogData.title} | EGC World`)},
+  description: ${JSON.stringify(blogData.metaDescription || blogData.excerpt)},
+  keywords: ${JSON.stringify(blogData.keywords)},
   openGraph: {
-    title: '${blogData.title}',
-    description: '${blogData.metaDescription || blogData.excerpt}',
+    title: ${JSON.stringify(blogData.title)},
+    description: ${JSON.stringify(blogData.metaDescription || blogData.excerpt)},
     type: 'article',
-    ${blogData.featuredImage ? `images: ['${blogData.featuredImage}'],` : ''}
+    ${blogData.featuredImage ? `images: [${JSON.stringify(blogData.featuredImage)}],` : ''}
   },
   twitter: {
     card: 'summary_large_image',
-    title: '${blogData.title}',
-    description: '${blogData.metaDescription || blogData.excerpt}',
-    ${blogData.featuredImage ? `images: ['${blogData.featuredImage}'],` : ''}
+    title: ${JSON.stringify(blogData.title)},
+    description: ${JSON.stringify(blogData.metaDescription || blogData.excerpt)},
+    ${blogData.featuredImage ? `images: [${JSON.stringify(blogData.featuredImage)}],` : ''}
   },
 };
 
@@ -166,6 +166,21 @@ ${formatted}
     // Write the page.tsx file
     const pagePath = path.join(blogDir, 'page.tsx');
     await fs.writeFile(pagePath, pageContent, 'utf8');
+
+    // Write metadata.json for index listing
+    const metadata = {
+      title: blogData.title,
+      slug: sanitizedSlug,
+      excerpt: blogData.excerpt,
+      category: blogData.category,
+      author: blogData.author,
+      readTime: blogData.readTime,
+      featuredImage: blogData.featuredImage || '',
+      published: !!blogData.published,
+      publishedAt: new Date().toISOString(),
+    };
+    const metaPath = path.join(blogDir, 'metadata.json');
+    await fs.writeFile(metaPath, JSON.stringify(metadata, null, 2), 'utf8');
 
     return NextResponse.json({ 
       message: 'Blog post created successfully', 

@@ -8,6 +8,7 @@ import { getCurrentAdmin, adminLogout, type Admin } from '@/app/lib/adminAuth'
 export default function AdminDashboard() {
   const [admin, setAdmin] = useState<Admin | null>(null)
   const [isLoading, setIsLoading] = useState(true)
+  const [blogCount, setBlogCount] = useState<number>(0)
   const router = useRouter()
 
   useEffect(() => {
@@ -30,6 +31,22 @@ export default function AdminDashboard() {
     setAdmin(currentAdmin)
     setIsLoading(false)
   }, [router])
+
+  useEffect(() => {
+    const fetchBlogCount = async () => {
+      try {
+        const res = await fetch('/api/blog/list', { cache: 'no-store' })
+        if (!res.ok) return
+        const data = await res.json()
+        setBlogCount(Array.isArray(data.posts) ? data.posts.length : 0)
+      } catch {}
+    }
+    fetchBlogCount()
+
+    // refresh count periodically to reflect changes
+    const id = setInterval(fetchBlogCount, 5000)
+    return () => clearInterval(id)
+  }, [])
 
   const handleLogout = () => {
     adminLogout()
@@ -113,7 +130,7 @@ export default function AdminDashboard() {
             </div>
             <div className="ml-4">
               <p className="text-sm text-gray-600 dark:text-gray-400">Blog Posts</p>
-              <p className="text-2xl font-semibold text-gray-900 dark:text-gray-100">3</p>
+              <p className="text-2xl font-semibold text-gray-900 dark:text-gray-100">{blogCount}</p>
             </div>
           </div>
         </div>

@@ -1,6 +1,40 @@
 import Image from 'next/image';
+import { promises as fs } from 'fs';
+import path from 'path';
 
-export default function Insights() {
+export const dynamic = 'force-dynamic';
+
+async function listInsightPosts() {
+  const insightsDir = path.join(process.cwd(), 'app', 'insights');
+  const entries = await fs.readdir(insightsDir, { withFileTypes: true });
+  const posts = [] as { slug: string; title: string; excerpt?: string; featuredImage?: string }[];
+
+  for (const entry of entries) {
+    if (!entry.isDirectory()) continue;
+    const slug = entry.name;
+    const metaPath = path.join(insightsDir, slug, 'metadata.json');
+    try {
+      const raw = await fs.readFile(metaPath, 'utf8');
+      const meta = JSON.parse(raw);
+      const title = meta.title || slug.replace(/-/g, ' ');
+      posts.push({ slug, title, excerpt: meta.excerpt, featuredImage: meta.featuredImage });
+    } catch {
+      // skip entries without page.tsx
+    }
+  }
+
+  // Sort newest first by directory mtime (best-effort)
+  const postsWithTime = await Promise.all(posts.map(async (p) => {
+    const stat = await fs.stat(path.join(insightsDir, p.slug));
+    return { ...p, mtime: stat.mtimeMs };
+  }));
+
+  postsWithTime.sort((a, b) => b.mtime - a.mtime);
+  return postsWithTime.map(({ slug, title, excerpt, featuredImage }) => ({ slug, title, excerpt, featuredImage }));
+}
+
+export default async function Insights() {
+  const posts = await listInsightPosts();
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
       {/* Hero Section */}
@@ -26,6 +60,31 @@ export default function Insights() {
       </section>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        {/* Latest Posts (Dynamic) */}
+        <section className="mb-16">
+          <h2 className="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-8">Latest Posts</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {posts.map(({ slug, title, excerpt, featuredImage }) => (
+              <a key={slug} href={`/insights/${slug}`} className="group bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
+                {featuredImage ? (
+                  <div className="relative h-48">
+                    {/* Use native img to avoid external domain config issues */}
+                    <img src={featuredImage} alt={title} className="w-full h-full object-cover" />
+                  </div>
+                ) : null}
+                <div className="p-6">
+                  <h3 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-2 group-hover:text-primary-600">
+                    {title}
+                  </h3>
+                  {excerpt ? (
+                    <p className="text-gray-600 dark:text-gray-300 text-sm mb-4 line-clamp-3">{excerpt}</p>
+                  ) : null}
+                  <span className="text-blue-600 dark:text-blue-400 font-semibold">Read More →</span>
+                </div>
+              </a>
+            ))}
+          </div>
+        </section>
         {/* Featured Articles */}
         <section className="mb-16">
           <h2 className="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-8">Featured Articles</h2>
