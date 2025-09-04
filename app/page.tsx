@@ -2,24 +2,15 @@
 
 import Image from "next/image";
 import AnimatedCounter from "./components/AnimatedCounter";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 
 export default function Home() {
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [isVisible, setIsVisible] = useState<{ [key: string]: boolean }>({});
 
   const heroSlides = [
     {
       id: 1,
-      backgroundImage: "/images/Landing-Page-Compliance.jpg",
-      tagline: "Simplifying Compliance, Empowering Businesses",
-      description: "We make compliance easy with expert guidance, smooth processes, and reliable business solutions.",
-      ctaPrimary: "Talk to Our Experts",
-      ctaSecondary: "Explore Services",
-      ctaPrimaryLink: "/contact",
-      ctaSecondaryLink: "/services"
-    },
-    {
-      id: 2,
       backgroundImage: "/images/Landing-Page-Marketing.jpg",
       tagline: "Creative Strategies That Drive Growth.",
       description: "Our marketing solutions combine creativity and strategy to boost your brand visibility, leads, and sales.",
@@ -29,7 +20,7 @@ export default function Home() {
       ctaSecondaryLink: "/services"
     },
     {
-      id: 3,
+      id: 2,
       backgroundImage: "/images/landing-page-consultancy.jpg",
       tagline: "Expert Guidance for Smarter Decisions",
       description: "Expert business consultancy that empowers entrepreneurs with insights, strategies, and smart decision-making.",
@@ -37,6 +28,16 @@ export default function Home() {
       ctaSecondary: "Get Started",
       ctaPrimaryLink: "/services/consulting",
       ctaSecondaryLink: "/contact"
+    },
+    {
+      id: 3,
+      backgroundImage: "/images/compliance-landing2.png",
+      tagline: "Simplifying Compliance, Empowering Businesses",
+      description: "We make compliance easy with expert guidance, smooth processes, and reliable business solutions.",
+      ctaPrimary: "Talk to Our Experts",
+      ctaSecondary: "Explore Services",
+      ctaPrimaryLink: "/contact",
+      ctaSecondaryLink: "/services"
     },
          {
        id: 4,
@@ -58,6 +59,31 @@ export default function Home() {
     return () => clearInterval(timer);
   }, []);
 
+  // Intersection Observer for scroll animations
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setIsVisible((prev) => ({
+              ...prev,
+              [entry.target.id]: true,
+            }));
+          }
+        });
+      },
+      {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px',
+      }
+    );
+
+    const elements = document.querySelectorAll('[data-animate]');
+    elements.forEach((el) => observer.observe(el));
+
+    return () => observer.disconnect();
+  }, []);
+
   const goToSlide = (index: number) => {
     setCurrentSlide(index);
   };
@@ -65,7 +91,7 @@ export default function Home() {
   return (
     <>
       {/* Hero Section with Background Image Carousel */}
-             <section className="relative bg-gradient-to-r from-blue-900 via-blue-800 to-blue-700 text-white pt-0 pb-20 overflow-hidden h-screen min-h-[600px]">
+      <section className="relative bg-gradient-to-r from-blue-900 via-blue-800 to-blue-700 text-white pt-0 pb-20 overflow-hidden h-screen min-h-[600px]">
         {/* Background Image Carousel */}
         {heroSlides.map((slide, index) => (
           <div
@@ -132,7 +158,15 @@ export default function Home() {
       {/* Our Core Services */}
       <section className="py-20 bg-gray-50 dark:bg-gray-900">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
+          <div 
+            id="services-header"
+            data-animate
+            className={`text-center mb-16 transition-all duration-1000 ${
+              isVisible['services-header'] 
+                ? 'opacity-100 translate-y-0' 
+                : 'opacity-0 translate-y-8'
+            }`}
+          >
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-gray-100 mb-4">
               What We Do
             </h2>
@@ -143,7 +177,15 @@ export default function Home() {
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {/* Business & Management Consulting */}
-            <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-8 hover:shadow-xl transition-shadow">
+            <div 
+              id="consulting-card"
+              data-animate
+              className={`bg-white dark:bg-gray-800 rounded-xl shadow-lg p-8 hover:shadow-xl transition-all duration-1000 ${
+                isVisible['consulting-card'] 
+                  ? 'opacity-100 translate-y-0' 
+                  : 'opacity-0 translate-y-8'
+              }`}
+            >
               <div className="w-16 h-16 bg-blue-100 rounded-lg flex items-center justify-center mb-6">
                 <svg className="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
@@ -159,7 +201,15 @@ export default function Home() {
             </div>
 
             {/* Marketing for Your Brand */}
-            <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-8 hover:shadow-xl transition-shadow">
+            <div 
+              id="marketing-card"
+              data-animate
+              className={`bg-white dark:bg-gray-800 rounded-xl shadow-lg p-8 hover:shadow-xl transition-all duration-1000 delay-200 ${
+                isVisible['marketing-card'] 
+                  ? 'opacity-100 translate-y-0' 
+                  : 'opacity-0 translate-y-8'
+              }`}
+            >
               <div className="w-16 h-16 bg-orange-100 dark:bg-orange-900 rounded-lg flex items-center justify-center mb-6">
                 <svg className="w-8 h-8 text-orange-600 dark:text-orange-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 100-6M5.436 13.683A4.001 4.001 0 017 6h1.832c4.1 0 7.625-1.234 9.168-3v14c-1.543 1.766-5.067 3-9.168 3H7a3.988 3.988 0 01-1.564-.317z" />
@@ -174,38 +224,54 @@ export default function Home() {
               </a>
             </div>
 
-                         {/* Corporate Compliance Solutions */}
-             <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-8 hover:shadow-xl transition-shadow">
-               <div className="w-16 h-16 bg-purple-100 dark:bg-purple-900 rounded-lg flex items-center justify-center mb-6">
-                 <svg className="w-8 h-8 text-purple-600 dark:text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-                 </svg>
-               </div>
-               <h3 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-4">Corporate Compliance Solutions</h3>
-               <p className="text-gray-600 dark:text-gray-300 mb-6">
-                 Ensure your business stays aligned with government regulations and industry standards.
-               </p>
-               <a href="/services/compliance" className="text-purple-600 dark:text-purple-400 hover:text-purple-700 dark:hover:text-purple-300 font-semibold">
-                 Get Compliance Support →
-               </a>
-             </div>
+            {/* Corporate Compliance Solutions */}
+            <div 
+              id="compliance-card"
+              data-animate
+              className={`bg-white dark:bg-gray-800 rounded-xl shadow-lg p-8 hover:shadow-xl transition-all duration-1000 delay-100 ${
+                isVisible['compliance-card'] 
+                  ? 'opacity-100 translate-y-0' 
+                  : 'opacity-0 translate-y-8'
+              }`}
+            >
+              <div className="w-16 h-16 bg-purple-100 dark:bg-purple-900 rounded-lg flex items-center justify-center mb-6">
+                <svg className="w-8 h-8 text-purple-600 dark:text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                </svg>
+              </div>
+              <h3 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-4">Corporate Compliance Solutions</h3>
+              <p className="text-gray-600 dark:text-gray-300 mb-6">
+                Ensure your business stays aligned with government regulations and industry standards.
+              </p>
+              <a href="/services/compliance" className="text-purple-600 dark:text-purple-400 hover:text-purple-700 dark:hover:text-purple-300 font-semibold">
+                Get Compliance Support →
+              </a>
+            </div>
 
-             {/* Learning & Development Programs */}
-             <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-8 hover:shadow-xl transition-shadow">
-               <div className="w-16 h-16 bg-green-100 dark:bg-green-900 rounded-lg flex items-center justify-center mb-6">
-                 <svg className="w-8 h-8 text-green-600 dark:text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
-                 </svg>
-               </div>
-               <h3 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-4">Learning & Development Programs</h3>
-               <p className="text-gray-600 dark:text-gray-300 mb-6">
-                 Customized workshops and corporate training designed to build skills and performance.
-               </p>
-               <a href="/services/training" className="text-green-600 dark:text-green-400 hover:text-green-700 dark:hover:text-green-300 font-semibold">
-                 View Programs →
-               </a>
-             </div>
-           </div>
+            {/* Learning & Development Programs */}
+            <div 
+              id="training-card"
+              data-animate
+              className={`bg-white dark:bg-gray-800 rounded-xl shadow-lg p-8 hover:shadow-xl transition-all duration-1000 delay-300 ${
+                isVisible['training-card'] 
+                  ? 'opacity-100 translate-y-0' 
+                  : 'opacity-0 translate-y-8'
+              }`}
+            >
+              <div className="w-16 h-16 bg-green-100 dark:bg-green-900 rounded-lg flex items-center justify-center mb-6">
+                <svg className="w-8 h-8 text-green-600 dark:text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                </svg>
+              </div>
+              <h3 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-4">Learning & Development Programs</h3>
+              <p className="text-gray-600 dark:text-gray-300 mb-6">
+                Customized workshops and corporate training designed to build skills and performance.
+              </p>
+              <a href="/services/training" className="text-green-600 dark:text-green-400 hover:text-green-700 dark:hover:text-green-300 font-semibold">
+                View Programs →
+              </a>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -213,7 +279,15 @@ export default function Home() {
       <section className="py-30">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <div>
+            <div 
+              id="making-difference-text"
+              data-animate
+              className={`transition-all duration-1000 ${
+                isVisible['making-difference-text'] 
+                  ? 'opacity-100 translate-x-0' 
+                  : 'opacity-0 -translate-x-8'
+              }`}
+            >
               <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-gray-100 mb-6">
                 Making a Difference
               </h2>
@@ -224,15 +298,23 @@ export default function Home() {
                 Talk to Our Team
               </a>
             </div>
-                                                                                                       <div className="rounded-3xl h-[500px] overflow-hidden">
-                 <Image 
-                   src="/images/Making-Difference.png" 
-                   alt="Making a Difference at EGC World" 
-                   width={400}
-                   height={500}
-                   className="w-full h-full object-cover rounded-3xl"
-                 />
-               </div>
+            <div 
+              id="making-difference-image"
+              data-animate
+              className={`rounded-3xl h-[500px] overflow-hidden transition-all duration-1000 delay-300 ${
+                isVisible['making-difference-image'] 
+                  ? 'opacity-100 translate-x-0' 
+                  : 'opacity-0 translate-x-8'
+              }`}
+            >
+              <Image 
+                src="/images/Making-Difference.png" 
+                alt="Making a Difference at EGC World" 
+                width={400}
+                height={500}
+                className="w-full h-full object-fill rounded-13xl"
+              />
+            </div>
           </div>
         </div>
       </section>
@@ -241,7 +323,15 @@ export default function Home() {
       <section className="py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <div>
+            <div 
+              id="about-text"
+              data-animate
+              className={`transition-all duration-1000 ${
+                isVisible['about-text'] 
+                  ? 'opacity-100 translate-x-0' 
+                  : 'opacity-0 -translate-x-8'
+              }`}
+            >
               <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-gray-100 mb-6">
                 Why Choose Emmanuel Global Consultancies?
               </h2>
@@ -254,7 +344,7 @@ export default function Home() {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                   </svg>
                   <span className="text-gray-700 dark:text-gray-300">
-                    <AnimatedCounter end={10} suffix="+ Years of Consultancy Experience" />
+                    <AnimatedCounter end={15} suffix="+ years of Consultancy Experience" />
                   </span>
                 </div>
                 <div className="flex items-center">
@@ -276,7 +366,15 @@ export default function Home() {
                 Know More About Us →
               </a>
             </div>
-            <div className="rounded-xl h-96 overflow-hidden">
+            <div 
+              id="about-image"
+              data-animate
+              className={`rounded-xl h-96 overflow-hidden transition-all duration-1000 delay-300 ${
+                isVisible['about-image'] 
+                  ? 'opacity-100 translate-x-0' 
+                  : 'opacity-0 translate-x-8'
+              }`}
+            >
               <Image 
                 src="/images/why-choose-us.jpg" 
                 alt="EGC World team collaboration and professional consulting" 
@@ -292,7 +390,15 @@ export default function Home() {
       {/* Connect With Us */}
       <section className="py-20 bg-gray-50 dark:bg-gray-900">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
+          <div 
+            id="connect-header"
+            data-animate
+            className={`text-center mb-12 transition-all duration-1000 ${
+              isVisible['connect-header'] 
+                ? 'opacity-100 translate-y-0' 
+                : 'opacity-0 translate-y-8'
+            }`}
+          >
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-gray-100 mb-6">
               Connect With Us
             </h2>
@@ -301,7 +407,15 @@ export default function Home() {
             </p>
           </div>
           
-          <div className="max-w-2xl mx-auto">
+          <div 
+            id="connect-form"
+            data-animate
+            className={`max-w-2xl mx-auto transition-all duration-1000 delay-200 ${
+              isVisible['connect-form'] 
+                ? 'opacity-100 translate-y-0' 
+                : 'opacity-0 translate-y-8'
+            }`}
+          >
             <form className="space-y-6">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <input
@@ -316,12 +430,12 @@ export default function Home() {
                 />
               </div>
               <select className="w-full px-4 py-3 border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" >
-                <option value="">Service Needed</option>
-                <option value="consulting">Consulting</option>
-                <option value="training">Training</option>
-                <option value="compliance">Compliance</option>
-                <option value="marketing">Marketing</option>
-                <option value="projects">Projects</option>
+                <option value="" className="bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100">Service Needed</option>
+                <option value="consulting" className="bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100">Consulting</option>
+                <option value="training" className="bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100">Training</option>
+                <option value="compliance" className="bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100">Compliance</option>
+                <option value="marketing" className="bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100">Marketing</option>
+                <option value="projects" className="bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100">Projects</option>
               </select>
               <button
                 type="submit"
@@ -332,7 +446,15 @@ export default function Home() {
             </form>
           </div>
           
-          <div className="mt-12 text-center text-gray-700 dark:text-gray-300">
+          <div 
+            id="connect-info"
+            data-animate
+            className={`mt-12 text-center text-gray-700 dark:text-gray-300 transition-all duration-1000 delay-400 ${
+              isVisible['connect-info'] 
+                ? 'opacity-100 translate-y-0' 
+                : 'opacity-0 translate-y-8'
+            }`}
+          >
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               <div className="flex items-center justify-center">
                 <span className="mr-2">📞</span>

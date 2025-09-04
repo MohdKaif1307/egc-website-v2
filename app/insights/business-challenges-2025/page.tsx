@@ -7,9 +7,9 @@ export const metadata: Metadata = {
 
 export default function BusinessChallenges2025() {
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
       {/* Hero Section */}
-      <section className="relative hero-gradient text-white py-20 overflow-hidden">
+      <section className="relative bg-gradient-to-r from-purple-600 via-purple-700 to-purple-800 text-white py-20 overflow-hidden">
         {/* Background Image */}
         <div
           className="absolute inset-0 bg-cover bg-center bg-no-repeat z-0"
@@ -18,15 +18,15 @@ export default function BusinessChallenges2025() {
           }}
         ></div>
         <div className="absolute inset-0 bg-black/60 z-10"></div>
-        <div className="hero-content relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
             <h1 className="text-4xl md:text-5xl font-bold mb-6">
               Top 5 Business Challenges in 2025 and How Consulting Can Solve Them
             </h1>
-            <p className="text-xl text-blue-100 max-w-3xl mx-auto">
+            <p className="text-xl text-purple-100 max-w-3xl mx-auto">
               Navigate the complex business landscape with expert guidance and strategic solutions
             </p>
-            <div className="mt-8 flex items-center justify-center space-x-4 text-sm text-blue-200">
+            <div className="mt-8 flex items-center justify-center space-x-4 text-sm text-purple-200">
               <span>Published: January 5, 2025</span>
               <span>•</span>
               <span>6 min read</span>

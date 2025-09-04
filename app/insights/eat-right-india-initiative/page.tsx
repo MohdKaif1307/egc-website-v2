@@ -9,24 +9,24 @@ export default function EatRightIndiaInitiative() {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Hero Section */}
-      <section className="relative hero-gradient text-white py-20 overflow-hidden">
+      <section className="relative bg-gradient-to-r from-green-600 via-green-700 to-green-800 text-white py-20 overflow-hidden">
         {/* Background Image */}
         <div
           className="absolute inset-0 bg-cover bg-center bg-no-repeat z-0"
           style={{
-            backgroundImage: "url('/images/eat-right-india-bg.jpg')",
+            backgroundImage: "url('/images/Eat-Right-2.jpg')",
           }}
         ></div>
         <div className="absolute inset-0 bg-black/60 z-10"></div>
-        <div className="hero-content relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
-            <h1 className="text-4xl md:text-5xl font-bold mb-6">
+            <h1 className="text-4xl md:text-5xl font-bold mb-6 text-white dark:text-white">
               Eat Right India Initiative: What Businesses Need to Know
             </h1>
-            <p className="text-xl text-blue-100 max-w-3xl mx-auto">
+            <p className="text-xl text-white max-w-3xl mx-auto">
               Understanding the impact of this important initiative on food businesses and compliance requirements
             </p>
-            <div className="mt-8 flex items-center justify-center space-x-4 text-sm text-blue-200">
+            <div className="mt-8 flex items-center justify-center space-x-4 text-sm text-white">
               <span>Published: January 10, 2025</span>
               <span>•</span>
               <span>4 min read</span>
@@ -233,7 +233,7 @@ export default function EatRightIndiaInitiative() {
                 not only ensure compliance but also gain competitive advantages in the market.
               </p>
 
-              <div className="mt-12 p-8 bg-primary-50 rounded-xl border-l-4 border-primary-500">
+              <div className="mt-12 p-8 bg-primary-50 rounded-xl border-l-4 border-primary-500 dark:bg-primary-500">
                 <h3 className="text-primary-900 mb-4 text-2xl font-semibold">Ready to Implement Eat Right India Compliance?</h3>
                 <p className="text-primary-800 mb-6 text-lg">
                   Our experts can help you navigate the requirements and implement effective compliance strategies 
@@ -241,7 +241,7 @@ export default function EatRightIndiaInitiative() {
                 </p>
                 <a 
                   href="/contact" 
-                  className="inline-block bg-gradient-to-t from-white-700 to-primary-500 text-white px-8 py-4 rounded-lg hover:bg-white-700 transition-colors font-semibold shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
+                  className="inline-block bg-gradient-to-t from-primary-500 to-primary-700 text-black dark:text-black-900 py-4 dark:py-4 rounded-lg hover:bg-black dark:hover:bg-white transition-colors font-semibold shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
                 >
                   Get Started Today
                 </a>

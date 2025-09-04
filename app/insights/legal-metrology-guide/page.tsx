@@ -9,7 +9,7 @@ export default function LegalMetrologyGuide() {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Hero Section */}
-      <section className="relative hero-gradient text-white py-20 overflow-hidden h-screen max-h-[500px]">
+      <section className="relative bg-gradient-to-r from-blue-900 via-blue-800 to-blue-700 text-white py-20 overflow-hidden h-screen max-h-[500px]">
         {/* Background Image */}
         <div
           className="absolute inset-0 bg-cover bg-center bg-no-repeat z-0"
@@ -18,21 +18,17 @@ export default function LegalMetrologyGuide() {
           }}
         ></div>
         <div className="absolute inset-0 bg-black/60 z-10"></div>
-        <div className="hero-content relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
-            <h1 className="text-4xl md:text-5xl font-bold mb-6 text-white-100">
+            <h1 className="text-4xl md:text-5xl font-bold mb-6 text-white dark:text-white">
               Legal Metrology in India: A Complete Guide for Businesses in 2025
             </h1>
-            <p className="text-xl text-white-100 max-w-3xl mx-auto">
+            <p className="text-xl text-white max-w-3xl mx-auto">
               Navigate the complex world of weights and measures regulations with our comprehensive guide
             </p>
-            <div className="mt-8 flex items-center justify-center space-x-4 text-sm text-white-200">
-              <span>Published: January 15, 2025</span>
-              <span>•</span>
-              <span>5 min read</span>
-              <span>•</span>
-              <span>Legal Metrology</span>
-            </div>
+            <p className="mt-8 text-sm text-white dark:text-white">
+              Published: January 15, 2025 • 5 min read • Legal Metrology
+            </p>
           </div>
         </div>
       </section>
@@ -198,15 +194,15 @@ export default function LegalMetrologyGuide() {
                 compliance measures, businesses can navigate the complex landscape of Legal Metrology successfully.
               </p>
 
-              <div className="mt-12 p-8 bg-primary-50 rounded-xl border-l-4 border-primary-500">
-                <h3 className="text-black-900 mb-4 text-2xl font-semibold">Need Help with Legal Metrology Compliance?</h3>
-                <p className="text-primary-800 mb-6 text-lg">
+              <div className="mt-12 p-8 bg-blue-50 dark:bg-primary-500 rounded-xl border-l-4 border-blue-500">
+                <h3 className="text-gray-900 dark:text-gray-100 mb-4 text-2xl font-semibold">Need Help with Legal Metrology Compliance?</h3>
+                <p className="text-blue-800 dark:text-blue-200 mb-6 text-lg">
                   Our team of experts can help you navigate the complex world of Legal Metrology regulations 
                   and ensure your business stays compliant.
                 </p>
                 <a 
                   href="/contact" 
-                  className="inline-block bg-gradient-to-t from-white-700 to-primary-500 text-white px-8 py-4 rounded-lg hover:bg-white-700 transition-colors font-semibold shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
+                  className="inline-block bg-gradient-to-r from-primary-500 to-primary-600 text-white px-8 py-4 rounded-lg hover:from-primary-600 hover:to-primary-700 transition-colors font-semibold shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
                 >
                   Contact Us Today
                 </a>

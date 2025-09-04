@@ -16,14 +16,11 @@ function Header() {
     };
 
     const handleThemeChange = () => {
-      // Check multiple ways dark mode might be detected
-      const isDark = document.documentElement.classList.contains('dark') || 
-                    document.body.classList.contains('dark') ||
-                    window.matchMedia('(prefers-color-scheme: dark)').matches;
+      // Treat dark mode as enabled only when the app sets the 'dark' class
+      const isDark = document.documentElement.classList.contains('dark') ||
+                     document.body.classList.contains('dark');
       setIsDarkMode(isDark);
-      console.log('Dark mode detected:', isDark, 'Scrolled:', isScrolled);
-      console.log('Document classes:', document.documentElement.classList.toString());
-      console.log('Body classes:', document.body.classList.toString());
+      console.log('Dark mode (class-based) detected:', isDark, 'Scrolled:', isScrolled);
     };
 
     // Initial check
@@ -33,10 +30,8 @@ function Header() {
     
     // Listen for theme changes
     const observer = new MutationObserver(handleThemeChange);
-    observer.observe(document.documentElement, {
-      attributes: true,
-      attributeFilter: ['class']
-    });
+    observer.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
+    observer.observe(document.body, { attributes: true, attributeFilter: ['class'] });
 
     return () => {
       window.removeEventListener('scroll', handleScroll);
@@ -63,7 +58,7 @@ function Header() {
                 height={50} 
                 className="h-20 w-auto transition-all duration-300"
                 style={{
-                  filter: (isScrolled || (!isScrolled && isDarkMode)) 
+                  filter: isDarkMode || isScrolled 
                     ? 'brightness(0) invert(1)' 
                     : 'none'
                 }} 

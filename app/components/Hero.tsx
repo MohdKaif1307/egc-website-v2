@@ -7,6 +7,8 @@ interface HeroProps {
   backgroundPosition?: 'center' | 'top' | 'bottom' | 'left' | 'right';
   height?: 'screen' | 'auto' | 'custom';
   customHeight?: string;
+  titleClassName?: string;
+  subtitleClassName?: string;
   children?: React.ReactNode;
 }
 
@@ -19,6 +21,8 @@ export default function Hero({
   backgroundPosition = "center",
   height = "screen",
   customHeight,
+  titleClassName = "text-4xl md:text-5xl font-bold mb-6",
+  subtitleClassName = "text-xl text-blue-100 max-w-3xl mx-auto",
   children 
 }: HeroProps) {
   return (
@@ -44,11 +48,11 @@ export default function Hero({
       {/* Content */}
       <div className="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full flex items-center justify-center">
         <div className="text-center">
-          <h1 className="text-4xl md:text-5xl font-bold mb-6">
+          <h1 className={titleClassName}>
             {title}
           </h1>
           {subtitle && (
-            <p className="text-xl text-blue-100 max-w-3xl mx-auto">
+            <p className={subtitleClassName}>
               {subtitle}
             </p>
           )}

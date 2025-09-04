@@ -41,7 +41,7 @@ export default function EatRightIndia() {
       </section>
 
       {/* Project Overview */}
-      <section id="overview" className="py-20">
+      <section id="overview" className="py-20 bg-gray-50 dark:bg-primary-700">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div>
@@ -108,13 +108,13 @@ export default function EatRightIndia() {
       </section>
 
       {/* Key Components */}
-      <section className="py-20 bg-gray-50 dark:bg-gray-900">
+      <section className="py-20 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-gray-100 mb-4">
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-black-900 mb-4">
               Key Program Components
             </h2>
-            <p className="text-xl text-gray-600 dark:text-gray-300">
+            <p className="text-xl text-gray-600 dark:text-black-900 mb-2">
               Comprehensive approach to food safety transformation
             </p>
           </div>
@@ -196,13 +196,13 @@ export default function EatRightIndia() {
       </section>
 
       {/* Impact & Results */}
-      <section className="py-20">
+      <section className="py-20 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-gray-100 mb-4">
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-black-900 mb-4">
               Impact & Results
             </h2>
-            <p className="text-xl text-gray-600 dark:text-gray-300">
+            <p className="text-xl text-gray-600 dark:text-black-900 mb-2">
               Measurable outcomes from our Eat Right India implementation
             </p>
           </div>
@@ -212,32 +212,32 @@ export default function EatRightIndia() {
               <div className="text-4xl font-bold text-green-600 mb-2">
                 <AnimatedCounter end={500} suffix="+" className="text-4xl font-bold text-green-600" />
               </div>
-              <div className="text-gray-500 dark:text-gray-400 text-sm">Food Businesses Trained</div>
+              <div className="text-gray-500 dark:text-black-900 text-sm">Food Businesses Trained</div>
             </div>
             <div className="text-center">
               <div className="text-4xl font-bold text-green-600 mb-2">
                 <AnimatedCounter end={10000} suffix="+" className="text-4xl font-bold text-green-600" />
               </div>
-              <div className="text-gray-500 dark:text-gray-400 text-sm">Individuals Educated</div>
+              <div className="text-gray-500 dark:text-black-900 text-sm">Individuals Educated</div>
             </div>
             <div className="text-center">
               <div className="text-4xl font-bold text-green-600 mb-2">
                 <AnimatedCounter end={50} suffix="+" className="text-4xl font-bold text-green-600" />
               </div>
-              <div className="text-gray-500 dark:text-gray-400 text-sm">Cities Covered</div>
+              <div className="text-gray-500 dark:text-black-900 text-sm">Cities Covered</div>
             </div>
             <div className="text-center">
               <div className="text-4xl font-bold text-green-600 mb-2">
                 <AnimatedCounter end={95} suffix="%" className="text-4xl font-bold text-green-600" />
               </div>
-              <div className="text-gray-500 dark:text-gray-400 text-sm">Compliance Rate</div>
+              <div className="text-gray-500 dark:text-black-900 text-sm">Compliance Rate</div>
             </div>
           </div>
         </div>
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 bg-gradient-to-r from-green-400 to-primary-900 text-white">
+      <section className="py-20 bg-primary-500 text-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-3xl md:text-4xl font-bold mb-6">
             Ready to Join the Movement?

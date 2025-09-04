@@ -299,7 +299,7 @@ export default function TrainingService() {
       </section>
 
       {/* CTA Section */}
-      <section className="bg-primary-700 text-white py-20">
+      <section className="bg-primary-500 text-white py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-3xl md:text-4xl font-bold mb-6">
             Ready to Invest in Your Team's Success?

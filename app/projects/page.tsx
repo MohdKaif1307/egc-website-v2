@@ -1,324 +1,356 @@
+'use client';
+
+import Image from "next/image";
+import { useEffect, useState } from "react";
+
 export default function Projects() {
+  const [isVisible, setIsVisible] = useState<{ [key: string]: boolean }>({});
+
+  // Intersection Observer for scroll animations
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setIsVisible((prev) => ({
+              ...prev,
+              [entry.target.id]: true,
+            }));
+          }
+        });
+      },
+      {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px',
+      }
+    );
+
+    const elements = document.querySelectorAll('[data-animate]');
+    elements.forEach((el) => observer.observe(el));
+
+    return () => observer.disconnect();
+  }, []);
+
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
+    <>
       {/* Hero Section */}
-      <section className="relative bg-gradient-to-r from-blue-900 via-blue-800 to-blue-700 text-white py-20 overflow-hidden h-screen max-h-[580px]">
-        {/* Background Image */}
-        <div className="absolute inset-0 bg-black/60 z-10"></div>
+      <section className="relative bg-gradient-to-r from-blue-900 via-blue-800 to-blue-700 text-white py-20 overflow-hidden">
         <div
-          className="absolute inset-0 bg-cover bg-center bg-no-repeat z-0"
+          className="absolute inset-0 bg-no-repeat z-0"
           style={{
-            backgroundImage: "url('/images/Regulatory-Projects.png')",
+            backgroundImage: "url('/images/projects-main-bg.jpg')",
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+            backgroundRepeat: 'no-repeat'
           }}
-        ></div>
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center">
-            <h1 className="text-4xl md:text-6xl font-bold mb-10">
-              Regulatory Project Implementation
-            </h1>
-            <p className="text-xl md:text-2xl mb-8 text-white-100 max-w-4xl mx-auto">
-              We partner with government bodies and organizations to implement critical regulatory initiatives that impact businesses and consumers across India.
-            </p>
-            <a 
-              href="#projects" 
-              className="bg-white text-blue-600 hover:bg-gray-100 px-8 py-4 rounded-lg font-semibold text-lg transition-colors"
-            >
-              Explore Our Projects
-            </a>
-          </div>
+        />
+        <div className="absolute inset-0 bg-black/60 z-10"></div>
+        <div className="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <h1 className="text-4xl md:text-6xl font-bold mb-6">
+            Our Key Projects
+          </h1>
+          <p className="text-xl md:text-2xl mb-8 text-blue-100 max-w-4xl mx-auto">
+            Discover how we've helped businesses achieve compliance, growth, and success through our innovative solutions.
+          </p>
+          <a 
+            href="/contact" 
+            className="bg-white text-blue-600 hover:bg-gray-100 px-8 py-4 rounded-lg font-semibold text-lg transition-colors"
+          >
+            Start Your Project
+          </a>
         </div>
       </section>
 
-      {/* Introduction Section */}
+      {/* Projects Overview */}
       <section className="py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-4xl mx-auto text-center">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
-              Driving Regulatory Excellence
+          <div 
+            id="projects-header"
+            data-animate
+            className={`text-center mb-16 transition-all duration-1000 ${
+              isVisible['projects-header'] 
+                ? 'opacity-100 translate-y-0' 
+                : 'opacity-0 translate-y-8'
+            }`}
+          >
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-gray-100 mb-4">
+              Featured Projects
             </h2>
-            <p className="text-lg text-gray-600 mb-8">
-              Our regulatory project implementation services bridge the gap between government initiatives and business compliance. We ensure that regulatory frameworks are not just understood but effectively implemented across industries.
-            </p>
-            <p className="text-lg text-gray-600">
-              From national health initiatives to legal metrology standards, we help organizations navigate complex regulatory landscapes with confidence and precision.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* Projects Section */}
-      <section id="projects" className="py-20 bg-gray-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-              Our Key Projects
-            </h2>
-            <p className="text-xl text-gray-600">
-              Discover how we're helping shape regulatory compliance across India
+            <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
+              From regulatory compliance to business transformation, our projects showcase our expertise and commitment to client success.
             </p>
           </div>
           
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
             {/* Eat Right India Initiative */}
-            <div className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
-              <div className="h-48 overflow-hidden">
-                <img src="/images/Eat-Right-2.jpg" alt="Eat Right India Initiative" className="w-full h-full object-cover" />
+            <div 
+              id="eat-right-project"
+              data-animate
+              className={`transition-all duration-1000 ${
+                isVisible['eat-right-project'] 
+                  ? 'opacity-100 translate-x-0' 
+                  : 'opacity-0 -translate-x-8'
+              }`}
+            >
+              <div className="rounded-xl h-80 overflow-hidden mb-6">
+                <Image 
+                  src="/images/Eat-Right-2.jpg" 
+                  alt="Eat Right India Initiative" 
+                  width={600}
+                  height={400}
+                  className="w-full h-full object-cover"
+                />
               </div>
-              <div className="p-8">
-                <h3 className="text-2xl font-bold text-gray-900 mb-4">
-                  Eat Right India Initiative
-                </h3>
-                <p className="text-gray-600 mb-6">
-                  Supporting the Food Safety and Standards Authority of India (FSSAI) in their mission to ensure safe, healthy, and sustainable food for all citizens.
-                </p>
-                
-                <div className="space-y-4 mb-6">
-                  <h4 className="text-lg font-semibold text-gray-900">Our Role:</h4>
-                  <ul className="text-gray-600 space-y-2">
-                    <li className="flex items-start">
-                      <span className="text-green-500 mr-2">•</span>
-                      <span>Implementing food safety standards across businesses</span>
-                    </li>
-                    <li className="flex items-start">
-                      <span className="text-green-500 mr-2">•</span>
-                      <span>Training food handlers and business owners</span>
-                    </li>
-                    <li className="flex items-start">
-                      <span className="text-green-500 mr-2">•</span>
-                      <span>Conducting compliance audits and assessments</span>
-                    </li>
-                    <li className="flex items-start">
-                      <span className="text-green-500 mr-2">•</span>
-                      <span>Developing educational materials and guidelines</span>
-                    </li>
-                  </ul>
+              <h3 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-4">
+                Eat Right India Initiative
+              </h3>
+              <p className="text-gray-600 dark:text-gray-300 mb-6">
+                A comprehensive food safety and hygiene compliance project for restaurants and food service establishments. We helped implement FSSAI standards, trained staff, and established monitoring systems to ensure food safety compliance.
+              </p>
+              <div className="space-y-3 mb-6">
+                <div className="flex items-center">
+                  <svg className="w-5 h-5 text-green-500 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                  </svg>
+                  <span className="text-gray-700 dark:text-gray-300">FSSAI compliance implementation</span>
                 </div>
-                
-                <div className="space-y-4 mb-6">
-                  <h4 className="text-lg font-semibold text-gray-900">Impact:</h4>
-                  <ul className="text-gray-600 space-y-2">
-                    <li className="flex items-start">
-                      <span className="text-green-500 mr-2">•</span>
-                      <span>Improved food safety practices across multiple states</span>
-                    </li>
-                    <li className="flex items-start">
-                      <span className="text-green-500 mr-2">•</span>
-                      <span>Enhanced consumer awareness and education</span>
-                    </li>
-                    <li className="flex items-start">
-                      <span className="text-green-500 mr-2">•</span>
-                      <span>Strengthened regulatory compliance framework</span>
-                    </li>
-                  </ul>
+                <div className="flex items-center">
+                  <svg className="w-5 h-5 text-green-500 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                  </svg>
+                  <span className="text-gray-700 dark:text-gray-300">Staff training and certification</span>
                 </div>
-                
-                <a 
-                  href="/projects/eat-right-india" 
-                  className="inline-block bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-lg font-semibold transition-colors"
-                >
-                  Learn More About This Project
-                </a>
+                <div className="flex items-center">
+                  <svg className="w-5 h-5 text-green-500 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                  </svg>
+                  <span className="text-gray-700 dark:text-gray-300">Quality management systems</span>
+                </div>
               </div>
+              <a href="/projects/eat-right-india" className="text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 font-semibold">
+                Learn More →
+              </a>
             </div>
 
             {/* Legal Metrology Affairs */}
-            <div className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
-              <div className="h-48 overflow-hidden">
-                <img src="/images/legal.jpg" alt="Legal Metrology Affairs" className="w-full h-full object-cover" />
+            <div 
+              id="legal-metrology-project"
+              data-animate
+              className={`transition-all duration-1000 delay-200 ${
+                isVisible['legal-metrology-project'] 
+                  ? 'opacity-100 translate-x-0' 
+                  : 'opacity-0 translate-x-8'
+              }`}
+            >
+              <div className="rounded-xl h-80 overflow-hidden mb-6">
+                <Image 
+                  src="/images/legal.jpg" 
+                  alt="Legal Metrology Affairs" 
+                  width={600}
+                  height={400}
+                  className="w-full h-full object-cover"
+                />
               </div>
-              <div className="p-8">
-                <h3 className="text-2xl font-bold text-gray-900 mb-4">
-                  Legal Metrology Affairs
-                </h3>
-                <p className="text-gray-600 mb-6">
-                  Ensuring accuracy in weights, measures, and packaging across industries through comprehensive regulatory implementation and compliance support.
-                </p>
-                
-                <div className="space-y-4 mb-6">
-                  <h4 className="text-lg font-semibold text-gray-900">Our Role:</h4>
-                  <ul className="text-gray-600 space-y-2">
-                    <li className="flex items-start">
-                      <span className="text-blue-500 mr-2">•</span>
-                      <span>Implementing legal metrology standards</span>
-                    </li>
-                    <li className="flex items-start">
-                      <span className="text-blue-500 mr-2">•</span>
-                      <span>Conducting verification and calibration services</span>
-                    </li>
-                    <li className="flex items-start">
-                      <span className="text-blue-500 mr-2">•</span>
-                      <span>Training businesses on packaging regulations</span>
-                    </li>
-                    <li className="flex items-start">
-                      <span className="text-blue-500 mr-2">•</span>
-                      <span>Providing compliance consulting and audits</span>
-                    </li>
-                  </ul>
+              <h3 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-4">
+                Legal Metrology Affairs
+              </h3>
+              <p className="text-gray-600 dark:text-gray-300 mb-6">
+                Regulatory compliance project for manufacturing and retail businesses. We ensured adherence to weights and measures regulations, implemented verification systems, and provided ongoing compliance support.
+              </p>
+              <div className="space-y-3 mb-6">
+                <div className="flex items-center">
+                  <svg className="w-5 h-5 text-green-500 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                  </svg>
+                  <span className="text-gray-700 dark:text-gray-300">Weights & measures compliance</span>
                 </div>
-                
-                <div className="space-y-4 mb-6">
-                  <h4 className="text-lg font-semibold text-gray-900">Impact:</h4>
-                  <ul className="text-gray-600 space-y-2">
-                    <li className="flex items-start">
-                      <span className="text-blue-500 mr-2">•</span>
-                      <span>Enhanced consumer protection through accurate measurements</span>
-                    </li>
-                    <li className="flex items-start">
-                      <span className="text-blue-500 mr-2">•</span>
-                      <span>Improved business compliance and trust</span>
-                    </li>
-                    <li className="flex items-start">
-                      <span className="text-blue-500 mr-2">•</span>
-                      <span>Standardized measurement practices across sectors</span>
-                    </li>
-                  </ul>
+                <div className="flex items-center">
+                  <svg className="w-5 h-5 text-green-500 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                  </svg>
+                  <span className="text-gray-700 dark:text-gray-300">Verification system implementation</span>
                 </div>
-                
-                <a 
-                  href="/projects/legal-metrology" 
-                  className="inline-block bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-semibold transition-colors"
-                >
-                  Learn More About This Project
-                </a>
+                <div className="flex items-center">
+                  <svg className="w-5 h-5 text-green-500 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                  </svg>
+                  <span className="text-gray-700 dark:text-gray-300">Ongoing compliance support</span>
+                </div>
               </div>
+              <a href="/projects/legal-metrology" className="text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 font-semibold">
+                Learn More →
+              </a>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Why Choose EGC for Regulatory Projects */}
-      <section className="py-20">
+      {/* Project Statistics */}
+      <section className="py-20 bg-gray-50 dark:bg-gray-900">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-              Why Choose EGC for Regulatory Projects?
+          <div 
+            id="stats-header"
+            data-animate
+            className={`text-center mb-16 transition-all duration-1000 ${
+              isVisible['stats-header'] 
+                ? 'opacity-100 translate-y-0' 
+                : 'opacity-0 translate-y-8'
+            }`}
+          >
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-gray-100 mb-4">
+              Project Impact
             </h2>
-          </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <div className="bg-white rounded-xl shadow-lg p-6 text-center">
-              <div className="w-16 h-16 bg-blue-100 rounded-lg flex items-center justify-center mx-auto mb-4">
-                <svg className="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-                </svg>
-              </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-2">Expert Knowledge</h3>
-              <p className="text-gray-600">
-                Deep understanding of regulatory frameworks and implementation requirements.
-              </p>
-            </div>
-
-            <div className="bg-white rounded-xl shadow-lg p-6 text-center">
-              <div className="w-16 h-16 bg-green-100 rounded-lg flex items-center justify-center mx-auto mb-4">
-                <svg className="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
-                </svg>
-              </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-2">Proven Track Record</h3>
-              <p className="text-gray-600">
-                Successfully implemented major regulatory initiatives across India.
-              </p>
-            </div>
-
-            <div className="bg-white rounded-xl shadow-lg p-6 text-center">
-              <div className="w-16 h-16 bg-purple-100 rounded-lg flex items-center justify-center mx-auto mb-4">
-                <svg className="w-8 h-8 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
-                </svg>
-              </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-2">Comprehensive Approach</h3>
-              <p className="text-gray-600">
-                End-to-end implementation from planning to execution and monitoring.
-              </p>
-            </div>
-
-            <div className="bg-white rounded-xl shadow-lg p-6 text-center">
-              <div className="w-16 h-16 bg-orange-100 rounded-lg flex items-center justify-center mx-auto mb-4">
-                <svg className="w-8 h-8 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
-                </svg>
-              </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-2">Training & Education</h3>
-              <p className="text-gray-600">
-                Comprehensive training programs to ensure sustainable implementation.
-              </p>
-            </div>
-
-            <div className="bg-white rounded-xl shadow-lg p-6 text-center">
-              <div className="w-16 h-16 bg-red-100 rounded-lg flex items-center justify-center mx-auto mb-4">
-                <svg className="w-8 h-8 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
-                </svg>
-              </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-2">Data-Driven Results</h3>
-              <p className="text-gray-600">
-                Measurable outcomes and continuous monitoring for project success.
-              </p>
-            </div>
-
-            <div className="bg-white rounded-xl shadow-lg p-6 text-center">
-              <div className="w-16 h-16 bg-indigo-100 rounded-lg flex items-center justify-center mx-auto mb-4">
-                <svg className="w-8 h-8 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                </svg>
-              </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-2">Nationwide Reach</h3>
-              <p className="text-gray-600">
-                Extensive network and presence across multiple states in India.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Process Section */}
-      <section className="py-20 bg-gray-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-              Our Implementation Process
-            </h2>
+            <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
+              Our projects have delivered measurable results and lasting impact for businesses across industries.
+            </p>
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            <div className="text-center">
-              <div className="w-16 h-16 bg-blue-600 rounded-full flex items-center justify-center mx-auto mb-4 text-white font-bold text-xl">
-                1
+            <div 
+              id="stat-1"
+              data-animate
+              className={`text-center transition-all duration-1000 ${
+                isVisible['stat-1'] 
+                  ? 'opacity-100 translate-y-0' 
+                  : 'opacity-0 translate-y-8'
+              }`}
+            >
+              <div className="text-4xl md:text-5xl font-bold text-blue-600 dark:text-blue-400 mb-2">1000+</div>
+              <div className="text-gray-600 dark:text-gray-300">Projects Completed</div>
+            </div>
+
+            <div 
+              id="stat-2"
+              data-animate
+              className={`text-center transition-all duration-1000 delay-100 ${
+                isVisible['stat-2'] 
+                  ? 'opacity-100 translate-y-0' 
+                  : 'opacity-0 translate-y-8'
+              }`}
+            >
+              <div className="text-4xl md:text-5xl font-bold text-green-600 dark:text-green-400 mb-2">98%</div>
+              <div className="text-gray-600 dark:text-gray-300">Client Satisfaction</div>
+            </div>
+
+            <div 
+              id="stat-3"
+              data-animate
+              className={`text-center transition-all duration-1000 delay-200 ${
+                isVisible['stat-3'] 
+                  ? 'opacity-100 translate-y-0' 
+                  : 'opacity-0 translate-y-8'
+              }`}
+            >
+              <div className="text-4xl md:text-5xl font-bold text-purple-600 dark:text-purple-400 mb-2">15+</div>
+              <div className="text-gray-600 dark:text-gray-300">Years Experience</div>
+            </div>
+
+            <div 
+              id="stat-4"
+              data-animate
+              className={`text-center transition-all duration-1000 delay-300 ${
+                isVisible['stat-4'] 
+                  ? 'opacity-100 translate-y-0' 
+                  : 'opacity-0 translate-y-8'
+              }`}
+            >
+              <div className="text-4xl md:text-5xl font-bold text-orange-600 dark:text-orange-400 mb-2">24/7</div>
+              <div className="text-gray-600 dark:text-gray-300">Support Available</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Project Process */}
+      <section className="py-20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div 
+            id="process-header"
+            data-animate
+            className={`text-center mb-16 transition-all duration-1000 ${
+              isVisible['process-header'] 
+                ? 'opacity-100 translate-y-0' 
+                : 'opacity-0 translate-y-8'
+            }`}
+          >
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-gray-100 mb-4">
+              Our Project Process
+            </h2>
+            <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
+              A systematic approach that ensures successful project delivery and lasting results.
+            </p>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <div 
+              id="process-step-1"
+              data-animate
+              className={`text-center transition-all duration-1000 ${
+                isVisible['process-step-1'] 
+                  ? 'opacity-100 translate-y-0' 
+                  : 'opacity-0 translate-y-8'
+              }`}
+            >
+              <div className="w-16 h-16 bg-blue-100 dark:bg-blue-900 rounded-full flex items-center justify-center mx-auto mb-6">
+                <span className="text-2xl font-bold text-blue-600 dark:text-blue-400">1</span>
               </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-2">Assessment</h3>
-              <p className="text-gray-600">
-                Comprehensive analysis of regulatory requirements and current state.
+              <h3 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-4">Discovery</h3>
+              <p className="text-gray-600 dark:text-gray-300">
+                We begin by understanding your business needs, challenges, and objectives to develop a tailored project plan.
               </p>
             </div>
 
-            <div className="text-center">
-              <div className="w-16 h-16 bg-blue-600 rounded-full flex items-center justify-center mx-auto mb-4 text-white font-bold text-xl">
-                2
+            <div 
+              id="process-step-2"
+              data-animate
+              className={`text-center transition-all duration-1000 delay-100 ${
+                isVisible['process-step-2'] 
+                  ? 'opacity-100 translate-y-0' 
+                  : 'opacity-0 translate-y-8'
+              }`}
+            >
+              <div className="w-16 h-16 bg-green-100 dark:bg-green-900 rounded-full flex items-center justify-center mx-auto mb-6">
+                <span className="text-2xl font-bold text-green-600 dark:text-green-400">2</span>
               </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-2">Planning</h3>
-              <p className="text-gray-600">
-                Strategic roadmap development and stakeholder engagement.
+              <h3 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-4">Planning</h3>
+              <p className="text-gray-600 dark:text-gray-300">
+                Detailed project planning with timelines, milestones, and resource allocation to ensure smooth execution.
               </p>
             </div>
 
-            <div className="text-center">
-              <div className="w-16 h-16 bg-blue-600 rounded-full flex items-center justify-center mx-auto mb-4 text-white font-bold text-xl">
-                3
+            <div 
+              id="process-step-3"
+              data-animate
+              className={`text-center transition-all duration-1000 delay-200 ${
+                isVisible['process-step-3'] 
+                  ? 'opacity-100 translate-y-0' 
+                  : 'opacity-0 translate-y-8'
+              }`}
+            >
+              <div className="w-16 h-16 bg-purple-100 dark:bg-purple-900 rounded-full flex items-center justify-center mx-auto mb-6">
+                <span className="text-2xl font-bold text-purple-600 dark:text-purple-400">3</span>
               </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-2">Implementation</h3>
-              <p className="text-gray-600">
-                Systematic execution with training and support programs.
+              <h3 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-4">Implementation</h3>
+              <p className="text-gray-600 dark:text-gray-300">
+                Expert execution of the project plan with regular updates and transparent communication throughout.
               </p>
             </div>
 
-            <div className="text-center">
-              <div className="w-16 h-16 bg-blue-600 rounded-full flex items-center justify-center mx-auto mb-4 text-white font-bold text-xl">
-                4
+            <div 
+              id="process-step-4"
+              data-animate
+              className={`text-center transition-all duration-1000 delay-300 ${
+                isVisible['process-step-4'] 
+                  ? 'opacity-100 translate-y-0' 
+                  : 'opacity-0 translate-y-8'
+              }`}
+            >
+              <div className="w-16 h-16 bg-orange-100 dark:bg-orange-900 rounded-full flex items-center justify-center mx-auto mb-6">
+                <span className="text-2xl font-bold text-orange-600 dark:text-orange-400">4</span>
               </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-2">Monitoring</h3>
-              <p className="text-gray-600">
-                Continuous evaluation and improvement of implementation outcomes.
+              <h3 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-4">Support</h3>
+              <p className="text-gray-600 dark:text-gray-300">
+                Ongoing support and maintenance to ensure your project continues to deliver value and meet evolving needs.
               </p>
             </div>
           </div>
@@ -326,30 +358,40 @@ export default function Projects() {
       </section>
 
       {/* CTA Section */}
-      <section className="bg-gradient-to-r from-primary-800 text-white py-20">
+      <section className="py-20 bg-blue-600 text-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-3xl md:text-4xl font-bold mb-6">
-            Ready to Partner on Regulatory Projects?
-          </h2>
-          <p className="text-xl mb-8 text-white-100 max-w-3xl mx-auto">
-            Let's discuss how we can help implement regulatory initiatives that drive compliance and create positive impact across your industry.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <a 
-              href="/contact" 
-              className="bg-white text-blue-600 hover:bg-gray-100 px-8 py-4 rounded-lg font-semibold text-lg transition-colors"
-            >
-              Get in Touch
-            </a>
-            <a 
-              href="/services" 
-              className="border-2 border-white text-white hover:bg-white hover:text-blue-600 px-8 py-4 rounded-lg font-semibold text-lg transition-colors"
-            >
-              Explore Our Services
-            </a>
+          <div 
+            id="cta-content"
+            data-animate
+            className={`transition-all duration-1000 ${
+              isVisible['cta-content'] 
+                ? 'opacity-100 translate-y-0' 
+                : 'opacity-0 translate-y-8'
+            }`}
+          >
+            <h2 className="text-3xl md:text-4xl font-bold mb-6">
+              Ready to Start Your Project?
+            </h2>
+            <p className="text-xl mb-8 text-blue-100 max-w-3xl mx-auto">
+              Let's discuss how we can help you achieve your business goals and implement successful solutions.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <a 
+                href="/contact" 
+                className="bg-white text-blue-600 hover:bg-gray-100 px-8 py-4 rounded-lg font-semibold text-lg transition-colors"
+              >
+                Get Started Today
+              </a>
+              <a 
+                href="/services" 
+                className="border-2 border-white text-white hover:bg-white hover:text-blue-600 px-8 py-4 rounded-lg font-semibold text-lg transition-colors"
+              >
+                Explore Our Services
+              </a>
+            </div>
           </div>
         </div>
       </section>
-    </div>
+    </>
   );
 }
