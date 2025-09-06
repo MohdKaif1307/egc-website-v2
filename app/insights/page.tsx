@@ -1,36 +1,49 @@
 import Image from 'next/image';
-import { promises as fs } from 'fs';
-import path from 'path';
 
 export const dynamic = 'force-dynamic';
 
+interface BlogPost {
+  id: string;
+  title: string;
+  slug: string;
+  excerpt: string;
+  content: string;
+  metaDescription: string;
+  keywords: string;
+  category: string;
+  author: string;
+  readTime: number;
+  featuredImage: string;
+  published: boolean;
+  publishedAt: string;
+  createdAt: string;
+}
+
 async function listInsightPosts() {
-  const insightsDir = path.join(process.cwd(), 'app', 'insights');
-  const entries = await fs.readdir(insightsDir, { withFileTypes: true });
-  const posts = [] as { slug: string; title: string; excerpt?: string; featuredImage?: string }[];
-
-  for (const entry of entries) {
-    if (!entry.isDirectory()) continue;
-    const slug = entry.name;
-    const metaPath = path.join(insightsDir, slug, 'metadata.json');
-    try {
-      const raw = await fs.readFile(metaPath, 'utf8');
-      const meta = JSON.parse(raw);
-      const title = meta.title || slug.replace(/-/g, ' ');
-      posts.push({ slug, title, excerpt: meta.excerpt, featuredImage: meta.featuredImage });
-    } catch {
-      // skip entries without page.tsx
+  try {
+    const baseUrl = process.env.VERCEL_URL 
+      ? `https://${process.env.VERCEL_URL}` 
+      : 'http://localhost:3000';
+    
+    const response = await fetch(`${baseUrl}/api/blog/create`, {
+      cache: 'no-store'
+    });
+    
+    if (!response.ok) {
+      return [];
     }
+    
+    const posts: BlogPost[] = await response.json();
+    return posts.map(post => ({
+      slug: post.slug,
+      title: post.title,
+      excerpt: post.excerpt,
+      featuredImage: post.featuredImage
+    }));
+  } catch (error) {
+    console.error('Error fetching blog posts:', error);
+    return [];
   }
-
-  // Sort newest first by directory mtime (best-effort)
-  const postsWithTime = await Promise.all(posts.map(async (p) => {
-    const stat = await fs.stat(path.join(insightsDir, p.slug));
-    return { ...p, mtime: stat.mtimeMs };
-  }));
-
-  postsWithTime.sort((a, b) => b.mtime - a.mtime);
-  return postsWithTime.map(({ slug, title, excerpt, featuredImage }) => ({ slug, title, excerpt, featuredImage }));
 }
 
 export default async function Insights() {

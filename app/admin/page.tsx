@@ -35,10 +35,10 @@ export default function AdminDashboard() {
   useEffect(() => {
     const fetchBlogCount = async () => {
       try {
-        const res = await fetch('/api/blog/list', { cache: 'no-store' })
+        const res = await fetch('/api/blog/create', { cache: 'no-store' })
         if (!res.ok) return
         const data = await res.json()
-        setBlogCount(Array.isArray(data.posts) ? data.posts.length : 0)
+        setBlogCount(Array.isArray(data) ? data.length : 0)
       } catch {}
     }
     fetchBlogCount()

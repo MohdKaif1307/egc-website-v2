@@ -1,6 +1,4 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { promises as fs } from 'fs';
-import path from 'path';
 
 interface BlogData {
   title: string;
@@ -16,6 +14,58 @@ interface BlogData {
   published: boolean;
 }
 
+// In-memory storage for blog posts (in production, use a database)
+let blogPosts: any[] = [
+  {
+    id: '1',
+    title: 'Legal Metrology in India: A Complete Guide for Businesses in 2025',
+    slug: 'legal-metrology-guide',
+    excerpt: 'Navigate the complex world of weights and measures regulations with our comprehensive guide for businesses.',
+    content: '# Legal Metrology in India\n\nLegal metrology is the science of measurement and its application to trade and commerce. In India, the Legal Metrology Act, 2009, governs the standards of weights and measures used in commercial transactions.\n\n## Key Requirements\n\nAll businesses dealing with packaged commodities must comply with legal metrology requirements. This includes proper labeling, accurate measurements, and adherence to packaging standards.\n\n## Benefits of Compliance\n\nCompliance with legal metrology regulations helps businesses build trust with customers and avoid penalties.',
+    metaDescription: 'Navigate the complex world of weights and measures regulations with our comprehensive guide for businesses.',
+    keywords: 'legal metrology, weights and measures, business compliance, India regulations',
+    category: 'Compliance',
+    author: 'EGC Team',
+    readTime: 5,
+    featuredImage: '/images/legal-metrology-blog.jpg',
+    published: true,
+    publishedAt: '2024-01-15T00:00:00.000Z',
+    createdAt: '2024-01-15T00:00:00.000Z',
+  },
+  {
+    id: '2',
+    title: 'Eat Right India Initiative: Transforming Food Safety Standards',
+    slug: 'eat-right-india-initiative',
+    excerpt: 'Learn how the Eat Right India movement is revolutionizing food safety and quality standards across the nation.',
+    content: '# Eat Right India Initiative\n\nThe Eat Right India movement is a flagship program of the Food Safety and Standards Authority of India (FSSAI) aimed at improving food safety and nutrition.\n\n## Key Objectives\n\nThe initiative focuses on three key areas: safe food, healthy diets, and sustainable food systems.\n\n## Impact on Businesses\n\nFood businesses must adapt to new standards and implement better practices to align with the Eat Right India guidelines.',
+    metaDescription: 'Learn how the Eat Right India movement is revolutionizing food safety and quality standards across the nation.',
+    keywords: 'eat right india, food safety, FSSAI, nutrition, food standards',
+    category: 'Food Safety',
+    author: 'EGC Team',
+    readTime: 4,
+    featuredImage: '/images/eat-right-india-bg.jpg',
+    published: true,
+    publishedAt: '2024-01-10T00:00:00.000Z',
+    createdAt: '2024-01-10T00:00:00.000Z',
+  },
+  {
+    id: '3',
+    title: 'Top Business Challenges in 2025 and How to Overcome Them',
+    slug: 'business-challenges-2025',
+    excerpt: 'Discover the key challenges businesses will face in 2025 and strategic solutions to navigate them successfully.',
+    content: '# Top Business Challenges in 2025\n\nAs we move into 2025, businesses face unprecedented challenges that require innovative solutions and strategic thinking.\n\n## Key Challenges\n\n1. **Digital Transformation**: Adapting to new technologies\n2. **Regulatory Compliance**: Keeping up with changing regulations\n3. **Sustainability**: Meeting environmental standards\n4. **Talent Management**: Attracting and retaining skilled workers\n\n## Solutions\n\nBusinesses must invest in technology, stay updated with regulations, and focus on sustainable practices.',
+    metaDescription: 'Discover the key challenges businesses will face in 2025 and strategic solutions to navigate them successfully.',
+    keywords: 'business challenges, 2025, digital transformation, compliance, sustainability',
+    category: 'Business Strategy',
+    author: 'EGC Team',
+    readTime: 6,
+    featuredImage: '/images/business-challenges-blog.jpg',
+    published: true,
+    publishedAt: '2024-01-05T00:00:00.000Z',
+    createdAt: '2024-01-05T00:00:00.000Z',
+  }
+];
+
 export async function POST(request: NextRequest) {
   try {
     const blogData: BlogData = await request.json();
@@ -27,169 +77,55 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ message: 'Invalid slug' }, { status: 400 });
     }
 
-    // Create the blog directory path
-    const blogDir = path.join(process.cwd(), 'app', 'insights', sanitizedSlug);
-    
-    // Check if directory already exists
-    try {
-      await fs.access(blogDir);
+    // Check if blog with this slug already exists
+    const existingPost = blogPosts.find(post => post.slug === sanitizedSlug);
+    if (existingPost) {
       return NextResponse.json({ message: 'Blog with this slug already exists' }, { status: 400 });
-    } catch {
-      // Directory doesn't exist, which is what we want
     }
 
-    // Create the directory
-    await fs.mkdir(blogDir, { recursive: true });
-
-    // Format the content with basic markdown to JSX conversion
-    const formatContent = (content: string) => {
-      return content
-        .split('\n')
-        .map(line => {
-          if (line.startsWith('# ')) {
-            return `        <h1 className="text-4xl font-bold text-gray-900 dark:text-gray-100 mb-6 mt-8">${line.slice(2)}</h1>`;
-          } else if (line.startsWith('## ')) {
-            return `        <h2 className="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-4 mt-8">${line.slice(3)}</h2>`;
-          } else if (line.startsWith('### ')) {
-            return `        <h3 className="text-2xl font-semibold text-gray-900 dark:text-gray-100 mb-3 mt-6">${line.slice(4)}</h3>`;
-          } else if (line.trim() === '') {
-            return '';
-          } else {
-            return `        <p className="text-lg text-gray-700 dark:text-gray-300 mb-4 leading-7">${line}</p>`;
-          }
-        })
-        .join('\n');
-    };
-
-    const formatted = formatContent(blogData.content);
-
-    // Create the page.tsx file content
-    const pageContent = `import { Metadata } from 'next';
-
-export const metadata: Metadata = {
-  title: ${JSON.stringify(`${blogData.title} | EGC World`)},
-  description: ${JSON.stringify(blogData.metaDescription || blogData.excerpt)},
-  keywords: ${JSON.stringify(blogData.keywords)},
-  openGraph: {
-    title: ${JSON.stringify(blogData.title)},
-    description: ${JSON.stringify(blogData.metaDescription || blogData.excerpt)},
-    type: 'article',
-    ${blogData.featuredImage ? `images: [${JSON.stringify(blogData.featuredImage)}],` : ''}
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title: ${JSON.stringify(blogData.title)},
-    description: ${JSON.stringify(blogData.metaDescription || blogData.excerpt)},
-    ${blogData.featuredImage ? `images: [${JSON.stringify(blogData.featuredImage)}],` : ''}
-  },
-};
-
-export default function BlogPost() {
-  return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
-      {/* Hero Section */}
-      <section className="relative bg-gradient-to-r from-primary-800 via-primary-700 to-primary-600 text-white py-20 overflow-hidden">
-        ${blogData.featuredImage ? `
-        <div
-          className="absolute inset-0 bg-cover bg-center bg-no-repeat z-0"
-          style={{
-            backgroundImage: "url('${blogData.featuredImage}')",
-          }}
-        ></div>
-        <div className="absolute inset-0 bg-black/60 z-10"></div>
-        ` : '<div className="absolute inset-0 bg-black/20 z-10"></div>'}
-        <div className="relative z-20 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center">
-            <div className="mb-4">
-              <span className="bg-white/20 text-white px-3 py-1 rounded-full text-sm font-medium">
-                ${blogData.category}
-              </span>
-            </div>
-            <h1 className="text-4xl md:text-5xl font-bold mb-6">
-              ${blogData.title}
-            </h1>
-            <div className="flex items-center justify-center space-x-6 text-blue-100">
-              <span>By ${blogData.author}</span>
-              <span>•</span>
-              <span>${blogData.readTime} min read</span>
-              <span>•</span>
-              <span>${new Date().toLocaleDateString('en-US', { 
-                year: 'numeric', 
-                month: 'long', 
-                day: 'numeric' 
-              })}</span>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Blog Content */}
-      <section className="py-16">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-8 md:p-12">
-            <div className="blog-content">
-${formatted}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* CTA Section */}
-      <section className="py-16 bg-gradient-to-r from-primary-600 to-primary-700 text-white">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-3xl font-bold mb-4">
-            Ready to Transform Your Business?
-          </h2>
-          <p className="text-xl mb-8 text-blue-100 max-w-2xl mx-auto">
-            Get expert guidance and solutions tailored to your business needs.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <a 
-              href="/contact" 
-              className="bg-white text-primary-600 hover:bg-gray-100 px-8 py-3 rounded-lg font-semibold transition-colors"
-            >
-              Get in Touch
-            </a>
-            <a 
-              href="/insights" 
-              className="border-2 border-white text-white hover:bg-white hover:text-primary-600 px-8 py-3 rounded-lg font-semibold transition-colors"
-            >
-              More Insights
-            </a>
-          </div>
-        </div>
-      </section>
-    </div>
-  );
-}`;
-
-    // Write the page.tsx file
-    const pagePath = path.join(blogDir, 'page.tsx');
-    await fs.writeFile(pagePath, pageContent, 'utf8');
-
-    // Write metadata.json for index listing
-    const metadata = {
+    // Create blog post data
+    const blogPost = {
+      id: Date.now().toString(),
       title: blogData.title,
       slug: sanitizedSlug,
       excerpt: blogData.excerpt,
+      content: blogData.content,
+      metaDescription: blogData.metaDescription,
+      keywords: blogData.keywords,
       category: blogData.category,
       author: blogData.author,
       readTime: blogData.readTime,
       featuredImage: blogData.featuredImage || '',
       published: !!blogData.published,
       publishedAt: new Date().toISOString(),
+      createdAt: new Date().toISOString(),
     };
-    const metaPath = path.join(blogDir, 'metadata.json');
-    await fs.writeFile(metaPath, JSON.stringify(metadata, null, 2), 'utf8');
+
+    // Add to in-memory storage
+    blogPosts.push(blogPost);
 
     return NextResponse.json({ 
       message: 'Blog post created successfully', 
       slug: sanitizedSlug,
-      path: `/insights/${sanitizedSlug}`
+      path: `/insights/${sanitizedSlug}`,
+      id: blogPost.id
     });
 
   } catch (error) {
     console.error('Error creating blog post:', error);
+    return NextResponse.json({ 
+      message: 'Internal server error',
+      error: error instanceof Error ? error.message : 'Unknown error'
+    }, { status: 500 });
+  }
+}
+
+// GET endpoint to retrieve all blog posts
+export async function GET() {
+  try {
+    return NextResponse.json(blogPosts.filter(post => post.published));
+  } catch (error) {
+    console.error('Error fetching blog posts:', error);
     return NextResponse.json({ 
       message: 'Internal server error' 
     }, { status: 500 });
