@@ -1,5 +1,6 @@
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
+import Link from 'next/link';
 
 interface BlogPost {
   id: string;
@@ -162,18 +163,18 @@ export default async function BlogPost({ params }: { params: { slug: string } })
             Get expert guidance and solutions tailored to your business needs.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <a 
+            <Link 
               href="/contact" 
               className="bg-white text-primary-600 hover:bg-gray-100 px-8 py-3 rounded-lg font-semibold transition-colors"
             >
               Get in Touch
-            </a>
-            <a 
+            </Link>
+            <Link 
               href="/insights" 
               className="border-2 border-white text-white hover:bg-white hover:text-primary-600 px-8 py-3 rounded-lg font-semibold transition-colors"
             >
               More Insights
-            </a>
+            </Link>
           </div>
         </div>
       </section>

@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import Link from 'next/link';
 
 export const dynamic = 'force-dynamic';
 
@@ -78,7 +79,7 @@ export default async function Insights() {
           <h2 className="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-8">Latest Posts</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {posts.map(({ slug, title, excerpt, featuredImage }) => (
-              <a key={slug} href={`/insights/${slug}`} className="group bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
+              <Link key={slug} href={`/insights/${slug}`} className="group bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
                 {featuredImage ? (
                   <div className="relative h-48">
                     {/* Use native img to avoid external domain config issues */}
@@ -94,7 +95,7 @@ export default async function Insights() {
                   ) : null}
                   <span className="text-blue-600 dark:text-blue-400 font-semibold">Read More →</span>
                 </div>
-              </a>
+              </Link>
             ))}
           </div>
         </section>
@@ -118,9 +119,9 @@ export default async function Insights() {
                 <p className="text-gray-600 dark:text-gray-300 mb-4">
                   Navigate the complex world of weights and measures regulations with our comprehensive guide for businesses.
                 </p>
-                <a href="/insights/legal-metrology-guide" className="text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 font-semibold">
+                <Link href="/insights/legal-metrology-guide" className="text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 font-semibold">
                   Read More →
-                </a>
+                </Link>
               </div>
             </div>
 
@@ -139,9 +140,9 @@ export default async function Insights() {
                 <p className="text-gray-600 dark:text-gray-300 mb-4">
                   Learn how the Eat Right India movement is revolutionizing food safety and quality standards across the nation.
                 </p>
-                <a href="/insights/eat-right-india-initiative" className="text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 font-semibold">
+                <Link href="/insights/eat-right-india-initiative" className="text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 font-semibold">
                   Read More →
-                </a>
+                </Link>
               </div>
             </div>
 
@@ -160,9 +161,9 @@ export default async function Insights() {
                 <p className="text-gray-600 dark:text-gray-300 mb-4">
                   Discover the key challenges businesses will face in 2025 and strategic solutions to navigate them successfully.
                 </p>
-                <a href="/insights/business-challenges-2025" className="text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 font-semibold">
+                <Link href="/insights/business-challenges-2025" className="text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 font-semibold">
                   Read More →
-                </a>
+                </Link>
               </div>
             </div>
           </div>

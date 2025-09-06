@@ -102,7 +102,7 @@ export async function POST(request: NextRequest) {
     };
 
     // Add to in-memory storage
-    blogPosts.push(blogPost);
+    blogPosts = [...blogPosts, blogPost];
 
     return NextResponse.json({ 
       message: 'Blog post created successfully', 
