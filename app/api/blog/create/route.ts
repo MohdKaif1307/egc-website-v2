@@ -127,7 +127,8 @@ export async function GET() {
   } catch (error) {
     console.error('Error fetching blog posts:', error);
     return NextResponse.json({ 
-      message: 'Internal server error' 
+      message: 'Internal server error',
+      error: error instanceof Error ? error.message : 'Unknown error'
     }, { status: 500 });
   }
 }

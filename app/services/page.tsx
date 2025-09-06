@@ -1,5 +1,6 @@
 'use client';
 
+import Image from "next/image";
 import Hero from "../components/Hero";
 import Accordion from "../components/Accordion";
 import { useEffect, useState } from "react";
@@ -106,7 +107,7 @@ export default function Services() {
                 Strategic guidance to optimize operations, improve efficiency, and drive sustainable growth for your business.
               </p>
               <div className="mb-6">
-                <img src="/images/consulting 2.jpg" alt="Business Consulting" className="w-full h-32 object-cover rounded-lg" />
+                <Image src="/images/consulting 2.jpg" alt="Business Consulting" width={400} height={128} className="w-full h-32 object-cover rounded-lg" />
               </div>
               <a href="/services/consulting" className="text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 font-semibold">
                 Learn More →
@@ -133,7 +134,7 @@ export default function Services() {
                 Customized workshops and corporate training programs designed to enhance skills and boost performance.
               </p>
               <div className="mb-6">
-                <img src="/images/L&D Services.jpg" alt="Training & Development" className="w-full h-32 object-cover rounded-lg" />
+                <Image src="/images/L&D Services.jpg" alt="Training & Development" width={400} height={128} className="w-full h-32 object-cover rounded-lg" />
               </div>
               <a href="/services/training" className="text-green-600 dark:text-green-400 hover:text-green-700 dark:hover:text-green-300 font-semibold">
                 Learn More →
@@ -160,7 +161,7 @@ export default function Services() {
                 Expert guidance to ensure your business meets all regulatory requirements and industry standards.
               </p>
               <div className="mb-6">
-                <img src="/images/compliance-services.jpg" alt="Compliance Solutions" className="w-full h-32 object-cover rounded-lg" />
+                <Image src="/images/compliance-services.jpg" alt="Compliance Solutions" width={400} height={128} className="w-full h-32 object-cover rounded-lg" />
               </div>
               <a href="/services/compliance" className="text-purple-600 dark:text-purple-400 hover:text-purple-700 dark:hover:text-purple-300 font-semibold">
                 Learn More →
@@ -187,7 +188,7 @@ export default function Services() {
                 Creative strategies and digital solutions to boost brand visibility and drive customer engagement.
               </p>
               <div className="mb-6">
-                <img src="/images/Marketing-Services.jpg" alt="Marketing Services" className="w-full h-32 object-cover rounded-lg" />
+                <Image src="/images/Marketing-Services.jpg" alt="Marketing Services" width={400} height={128} className="w-full h-32 object-cover rounded-lg" />
               </div>
               <a href="/services/marketing" className="text-orange-600 dark:text-orange-400 hover:text-orange-700 dark:hover:text-orange-300 font-semibold">
                 Learn More →
@@ -214,7 +215,7 @@ export default function Services() {
                 Search engine optimization strategies to improve your online visibility and drive organic traffic.
               </p>
               <div className="mb-6">
-                <img src="/images/SEO-Services.jpg" alt="SEO Services" className="w-full h-32 object-cover rounded-lg" />
+                <Image src="/images/SEO-Services.jpg" alt="SEO Services" width={400} height={128} className="w-full h-32 object-cover rounded-lg" />
               </div>
               <a href="/services/seo" className="text-indigo-600 dark:text-indigo-400 hover:text-indigo-700 dark:hover:text-indigo-300 font-semibold">
                 Learn More →
@@ -241,7 +242,7 @@ export default function Services() {
                 End-to-end project management and implementation services for regulatory and business initiatives.
               </p>
               <div className="mb-6">
-                <img src="/images/projects-main-bg.jpg" alt="Project Implementation" className="w-full h-32 object-cover rounded-lg" />
+                <Image src="/images/projects-main-bg.jpg" alt="Project Implementation" width={400} height={128} className="w-full h-32 object-cover rounded-lg" />
               </div>
               <a href="/projects" className="text-red-600 dark:text-red-400 hover:text-red-700 dark:hover:text-red-300 font-semibold">
                 Learn More →

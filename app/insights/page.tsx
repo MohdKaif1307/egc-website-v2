@@ -83,7 +83,7 @@ export default async function Insights() {
                 {featuredImage ? (
                   <div className="relative h-48">
                     {/* Use native img to avoid external domain config issues */}
-                    <img src={featuredImage} alt={title} className="w-full h-full object-cover" />
+                    <Image src={featuredImage} alt={title} width={400} height={200} className="w-full h-full object-cover" />
                   </div>
                 ) : null}
                 <div className="p-6">
@@ -110,7 +110,8 @@ export default async function Insights() {
                 <Image 
                   src="/images/legal3.jpg" 
                   alt="Legal Metrology Guide" 
-                  fill
+                  width={400}
+                  height={200}
                   className="object-cover"
                 />
               </div>
