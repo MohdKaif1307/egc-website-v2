@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import AnimatedCounter from "./components/AnimatedCounter";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 
 export default function Home() {
   const [currentSlide, setCurrentSlide] = useState(0);

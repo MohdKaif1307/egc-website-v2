@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import AnimatedCounter from "../../components/AnimatedCounter";
 
 export default function EatRightIndia() {
@@ -246,18 +247,18 @@ export default function EatRightIndia() {
             Be part of India's food safety transformation. Contact us to learn how you can participate in or benefit from the Eat Right India initiative.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <a 
+            <Link 
               href="/contact" 
               className="bg-white text-green-600 hover:bg-gray-100 px-8 py-4 rounded-lg font-semibold text-lg transition-colors"
             >
               Get Involved
-            </a>
-            <a 
+            </Link>
+            <Link 
               href="/insights/eat-right-india-initiative" 
               className="border-2 border-white text-white hover:bg-white hover:text-green-600 px-8 py-4 rounded-lg font-semibold text-lg transition-colors"
             >
               Learn More
-            </a>
+            </Link>
           </div>
         </div>
       </section>
